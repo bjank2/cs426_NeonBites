@@ -1,0 +1,2 @@
+Implementing minimap for lvl -- Mon by 5pm (estimate: 6 hrs)
+Implementing Navmesh (at least in debug, displaying shortest path) -- Wed by 10 AM (estimate: 4 hr)
