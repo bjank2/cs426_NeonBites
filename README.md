@@ -4,10 +4,6 @@
 2. Alexa Osuna
 3. Pranav Mishra (Project Manager)
 
-Tools:
-Github (version control and bug tracking): https://github.com/bjank2/cs426_NeonBites 
-Communication: Email/Discord
-
 ## Game Idea:
 In single player versus game, the player will play as a robot tasked with delivering food to customers while facing various conflicts such as time, enemies, and their malfunctioning cybernetic body. The player will manage time, money, and body/vehicle upgrades.
 
