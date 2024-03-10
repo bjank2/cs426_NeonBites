@@ -15,9 +15,10 @@ public class PlayerNavMesh : MonoBehaviour
 
     [SerializeField] private Transform destinationAgent;
 
-    public float startWidth = 0.3f;
+    public float startWidth = 0.3f, height = 1f;
     public float endWidth = 0.4f;
     public Material lineMaterial;
+    public bool routeAssigned = false;
 
     private void Awake()
     {
@@ -27,7 +28,7 @@ public class PlayerNavMesh : MonoBehaviour
     void Start()
     {
         //pointA = gameObject.transform;
-        pointB = destinationAgent;
+        //pointB = destinationAgent;
 
         // Get or add Line Renderer component
         lineRenderer = lineRendered_GameObject.GetComponent<LineRenderer>();
@@ -43,21 +44,29 @@ public class PlayerNavMesh : MonoBehaviour
 
 
         // Generate the route between points A and B
-        GenerateRoute(pointA.position, pointB.position);
+        //GenerateRoute(pointA.position, pointB.position);
     }
 
     // Update is called once per frame
     void Update()
     {
-
         // Check if pointB position has changed
-        if (pointB.hasChanged)
+        if (routeAssigned)
         {
             GenerateRoute(pointA.position, pointB.position);
         }
+        else lineRenderer.positionCount = 0;
     }
 
-    // Generate the route between two points using NavMesh
+    public void AssignRoute(Transform startPoint, Transform endPoint)
+    {
+        pointA = startPoint;
+        pointB = endPoint;
+        destinationAgent = endPoint;
+        routeAssigned = true;
+
+    }
+
     // Generate the route between two points using NavMesh
     void GenerateRoute(Vector3 startPoint, Vector3 endPoint)
     {
@@ -74,7 +83,7 @@ public class PlayerNavMesh : MonoBehaviour
             for (int i = 0; i < pathCorners.Length; i++)
             {
                 // Adjust Y position to be slightly above the ground
-                pathCorners[i].y = GetHeightAtPoint(pathCorners[i]) + 0.1f; // Adjust as needed
+                pathCorners[i].y = GetHeightAtPoint(pathCorners[i]) + height; // Adjust as needed
 
                 lineRenderer.SetPosition(i, pathCorners[i]);
             }
