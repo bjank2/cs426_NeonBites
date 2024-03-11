@@ -5,8 +5,8 @@ public class PickupController : MonoBehaviour
 {
     public Transform holdPoint;
     private GameObject currentPickedObject = null;
-
-
+    public Collider PickupCollider;
+    public TMPro.TextMeshProUGUI DeliveryStatusTMP;
     void Update()
     {
         if (Keyboard.current.eKey.wasPressedThisFrame)
@@ -23,7 +23,7 @@ public class PickupController : MonoBehaviour
     }
     private void TryPickupObject()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, 1f);
+        Collider[] colliders = Physics.OverlapBox(PickupCollider.bounds.center, PickupCollider.bounds.extents, PickupCollider.transform.rotation);
 
         foreach (var collider in colliders)
         {
@@ -42,6 +42,7 @@ public class PickupController : MonoBehaviour
         currentPickedObject.transform.localPosition = Vector3.zero;
         var rb = currentPickedObject.GetComponent<Rigidbody>();
         if (rb != null) rb.isKinematic = true;
+        if (DeliveryStatusTMP != null) DeliveryStatusTMP.text = "Delivery Status: In Progress";
     }
 
     private void DropObject()
