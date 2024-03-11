@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dreamteck.Utilities", "Dreamteck.Utilities.csproj", "{a899ca52-c1a8-a5e2-f95f-ef96b697f0d3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dreamteck.Splines", "Dreamteck.Splines.csproj", "{b838519e-4201-0ab1-0ead-becc57d207ee}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{a799fef7-7f56-f32e-3637-fc51623ae757}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dreamteck.Splines.Editor", "Dreamteck.Splines.Editor.csproj", "{660c71ee-ae49-569f-ea0c-f80a52aea81a}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dreamteck.Utilities.Editor", "Dreamteck.Utilities.Editor.csproj", "{6e8dcb8d-fd2e-6532-b306-c8e3719bec76}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{a899ca52-c1a8-a5e2-f95f-ef96b697f0d3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{a899ca52-c1a8-a5e2-f95f-ef96b697f0d3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{b838519e-4201-0ab1-0ead-becc57d207ee}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{b838519e-4201-0ab1-0ead-becc57d207ee}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{a799fef7-7f56-f32e-3637-fc51623ae757}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{a799fef7-7f56-f32e-3637-fc51623ae757}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{660c71ee-ae49-569f-ea0c-f80a52aea81a}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{660c71ee-ae49-569f-ea0c-f80a52aea81a}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6e8dcb8d-fd2e-6532-b306-c8e3719bec76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6e8dcb8d-fd2e-6532-b306-c8e3719bec76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
