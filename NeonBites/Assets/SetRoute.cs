@@ -23,8 +23,13 @@ public class SetRoute : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            navMesh = other.GetComponent<PlayerNavMesh>();
-            navMesh.AssignRoute(other.gameObject.transform, destination);
+            AssignRoute();
         }
+    }
+
+    public void AssignRoute()
+    {
+        navMesh.AssignRoute(gameObject.transform, destination);
+        Debug.Log("Assign route called");
     }
 }

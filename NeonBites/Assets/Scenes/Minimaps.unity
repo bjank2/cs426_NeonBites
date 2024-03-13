@@ -264,6 +264,9 @@ MonoBehaviour:
   holdPoint: {fileID: 1152343100}
   PickupCollider: {fileID: 2110765740}
   DeliveryStatusTMP: {fileID: 205789271}
+  setRoute: {fileID: 0}
+  navMesh: {fileID: 0}
+  destination: {fileID: 2014874261}
 --- !u!114 &94997637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -292,6 +295,9 @@ MonoBehaviour:
   holdPoint: {fileID: 1152343100}
   PickupCollider: {fileID: 2110765740}
   DeliveryStatusTMP: {fileID: 205789271}
+  setRoute: {fileID: 0}
+  navMesh: {fileID: 0}
+  destination: {fileID: 0}
 --- !u!1 &205789269
 GameObject:
   m_ObjectHideFlags: 0

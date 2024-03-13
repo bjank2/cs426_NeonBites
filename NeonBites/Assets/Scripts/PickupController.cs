@@ -7,6 +7,16 @@ public class PickupController : MonoBehaviour
     private GameObject currentPickedObject = null;
     public Collider PickupCollider;
     public TMPro.TextMeshProUGUI DeliveryStatusTMP;
+
+    public SetRoute setRoute;
+    public PlayerNavMesh navMesh;
+    public Transform destination;
+
+    private void Start()
+    {
+        setRoute = GetComponent<SetRoute>();
+        navMesh = FindObjectOfType<PlayerNavMesh>();
+    }
     void Update()
     {
         if (Keyboard.current.eKey.wasPressedThisFrame)
@@ -30,6 +40,9 @@ public class PickupController : MonoBehaviour
             if (collider.CompareTag("PickupObject"))
             {
                 PickupObject(collider.gameObject);
+
+                setRoute.AssignRoute(); // function called to assign roue on mimimap
+
                 break;
             }
         }
@@ -58,6 +71,9 @@ public class PickupController : MonoBehaviour
         if (rb != null) rb.isKinematic = false;
         currentPickedObject.transform.SetParent(null);
         currentPickedObject = null;
+
+        navMesh.routeAssigned = false; // When we drop object, we disable the route on minimap
+
     }
 
 }
