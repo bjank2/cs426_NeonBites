@@ -36,13 +36,19 @@ public class PickupController : MonoBehaviour
     }
 
     private void PickupObject(GameObject obj)
-    {
+    { 
         currentPickedObject = obj;
         currentPickedObject.transform.SetParent(holdPoint);
         currentPickedObject.transform.localPosition = Vector3.zero;
         var rb = currentPickedObject.GetComponent<Rigidbody>();
+        PickupObject pickupComponent = currentPickedObject.GetComponent<PickupObject>();
+        if (pickupComponent != null)
+        {
+            Debug.Log("Picked up object with ID: " + pickupComponent.pickupID);
+        }
         if (rb != null) rb.isKinematic = true;
         if (DeliveryStatusTMP != null) DeliveryStatusTMP.text = "Delivery Status: In Progress";
+
     }
 
     private void DropObject()
@@ -53,4 +59,5 @@ public class PickupController : MonoBehaviour
         currentPickedObject.transform.SetParent(null);
         currentPickedObject = null;
     }
+
 }
