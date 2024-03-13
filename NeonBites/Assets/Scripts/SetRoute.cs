@@ -23,7 +23,7 @@ public class SetRoute : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            AssignRoute();
+            //AssignRoute();
         }
     }
 

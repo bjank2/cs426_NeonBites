@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem;
 
 public class PlayerNavMesh : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class PlayerNavMesh : MonoBehaviour
     public Material lineMaterial;
     public bool routeAssigned = false;
 
+    private Animator _animator;
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -27,6 +30,8 @@ public class PlayerNavMesh : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _animator = GetComponent<Animator>();
+
         //pointA = gameObject.transform;
         //pointB = destinationAgent;
 
@@ -55,7 +60,27 @@ public class PlayerNavMesh : MonoBehaviour
         {
             GenerateRoute(pointA.position, pointB.position);
         }
-        else lineRenderer.positionCount = 0;
+        else 
+        {
+            destinationAgent = null;
+            lineRenderer.positionCount = 0;
+        }
+
+
+        // Check for input to trigger debug actions
+        if (Keyboard.current.qKey.wasPressedThisFrame)
+        {
+            // Print the name of the current state
+            Debug.Log("Current state: " + _animator.GetCurrentAnimatorStateInfo(0).ToString());
+
+            // Print the values of parameters, if any
+            Debug.Log("Jump parameter: " + _animator.GetBool("Jump"));
+            Debug.Log("Grounded parameter: " + _animator.GetBool("Grounded"));
+            Debug.Log("MotionSpeed parameter: " + _animator.GetFloat("MotionSpeed"));
+            Debug.Log("Speed parameter: " + _animator.GetFloat("Speed"));
+
+            _animator.SetTrigger("Pickup");
+        }
     }
 
     public void AssignRoute(Transform startPoint, Transform endPoint)
@@ -65,6 +90,8 @@ public class PlayerNavMesh : MonoBehaviour
         destinationAgent = endPoint;
         routeAssigned = true;
 
+        // add animation here
+
     }
 
     // Generate the route between two points using NavMesh
@@ -73,7 +100,7 @@ public class PlayerNavMesh : MonoBehaviour
         NavMeshPath path = new NavMeshPath();
 
         // Calculate the route between startPoint and endPoint
-        if (NavMesh.CalculatePath(startPoint, endPoint, NavMesh.AllAreas, path))
+        if (NavMesh.CalculatePath(gameObject.transform.position, endPoint, NavMesh.AllAreas, path))
         {
             // Set Line Renderer positions
             pathCorners = path.corners;

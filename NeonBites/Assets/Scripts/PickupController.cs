@@ -12,6 +12,8 @@ public class PickupController : MonoBehaviour
     public PlayerNavMesh navMesh;
     public Transform destination;
 
+    public ActivatePickup actPickup;
+
     private void Start()
     {
         setRoute = GetComponent<SetRoute>();
@@ -37,11 +39,9 @@ public class PickupController : MonoBehaviour
 
         foreach (var collider in colliders)
         {
-            if (collider.CompareTag("PickupObject"))
+            if (collider.CompareTag("PickupObject") && actPickup.isthis)
             {
                 PickupObject(collider.gameObject);
-
-                setRoute.AssignRoute(); // function called to assign roue on mimimap
 
                 break;
             }
@@ -58,6 +58,11 @@ public class PickupController : MonoBehaviour
         if (pickupComponent != null)
         {
             Debug.Log("Picked up object with ID: " + pickupComponent.pickupID);
+
+            //setRoute.AssignRoute(); // function called to assign roue on mimimap
+            Debug.Log(destination.name + " destination gameobject name  ");
+            navMesh.AssignRoute(gameObject.transform, destination);
+
         }
         if (rb != null) rb.isKinematic = true;
         if (DeliveryStatusTMP != null) DeliveryStatusTMP.text = "Delivery Status: In Progress";
