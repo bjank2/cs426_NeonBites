@@ -11,6 +11,13 @@ public class DropOffArea : MonoBehaviour
 
     public TMPro.TextMeshProUGUI DeliveryStatusTMP;
     public int requiredPickupID;
+    public PlayerNavMesh navmesh;
+
+
+    private void Start()
+    {
+        navmesh = FindObjectOfType<PlayerNavMesh>();    
+    }
     private void OnTriggerEnter(Collider other)
     {
                     Debug.Log("Object entered drop off area");
@@ -37,6 +44,8 @@ public class DropOffArea : MonoBehaviour
             }
 
             Destroy(other.gameObject);
+            navmesh.routeAssigned = false;
+
         }
     }
 }
