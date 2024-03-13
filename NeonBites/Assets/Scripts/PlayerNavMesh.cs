@@ -55,16 +55,21 @@ public class PlayerNavMesh : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         // Check if pointB position has changed
-        if (routeAssigned)
-        {
-            GenerateRoute(pointA.position, pointB.position);
-        }
-        else 
-        {
-            destinationAgent = null;
-            lineRenderer.positionCount = 0;
-        }
+   
+            if (routeAssigned)
+            {
+
+                GenerateRoute(pointA.position, pointB.position);
+            }
+            else
+            {
+                destinationAgent = null;
+                lineRenderer.positionCount = 0;
+            }
+        
+
 
 
         // Check for input to trigger debug actions

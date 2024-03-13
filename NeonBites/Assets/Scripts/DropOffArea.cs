@@ -10,6 +10,8 @@ public class DropOffArea : MonoBehaviour
     [SerializeField] private TMPro.TextMeshProUGUI TMP_Money;
 
     public TMPro.TextMeshProUGUI DeliveryStatusTMP;
+    public TMPro.TextMeshProUGUI EnemyHealth;
+    public GameObject EnemyTargetPrefab;
     public int requiredPickupID;
     public PlayerNavMesh navmesh;
 
@@ -20,7 +22,7 @@ public class DropOffArea : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-                    Debug.Log("Object entered drop off area");
+        Debug.Log("Object entered drop off area");
 
         if (other.CompareTag("PickupObject"))
         {
@@ -33,14 +35,22 @@ public class DropOffArea : MonoBehaviour
                 TMP_Money.text = "$" + MoneyManager.Instance.Money.ToString();
                 if (DeliveryStatusTMP != null) DeliveryStatusTMP.text = "Delivery Status: Complete";
                 Destroy(transform.parent.gameObject);
+                Destroy(other.gameObject);
+
+
             }
 
             else
             {
                 Debug.Log("Wrong object delivered");
-                MoneyManager.Instance.AddMoney(-20);
                 TMP_Money.text = "$" + MoneyManager.Instance.Money.ToString();
                 if (DeliveryStatusTMP != null) DeliveryStatusTMP.text = "Delivery Status: Failed";
+                Vector3 spawnPoint = new Vector3(transform.parent.position.x, 0f, transform.parent.position.z);
+                Destroy(transform.parent.gameObject);
+                Destroy(other.gameObject);
+
+                Instantiate(EnemyTargetPrefab, spawnPoint, Quaternion.Euler(0, 180, 0));
+
             }
 
             Destroy(other.gameObject);
