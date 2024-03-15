@@ -60,7 +60,6 @@ public class PlayerNavMesh : MonoBehaviour
    
             if (routeAssigned)
             {
-
                 GenerateRoute(pointA.position, pointB.position);
             }
             else
