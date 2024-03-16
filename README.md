@@ -3,20 +3,16 @@
 ![image](https://github.com/bjank2/cs426_NeonBites/assets/89926012/d294e279-ad82-42aa-b9e3-675b2acbf4d1)
 ## Controls:
 Bike: 
-
-R to ride bike.
-
-P to get off.
-
-Left shift to boost.
-
-Left alt to drift.
+1. R to ride bike.
+2. P to get off.
+3. Left shift to boost.
+4. Left alt to drift.
 
 
 Package:
-E to pickup package
+1. E to pickup package
+2. E to drop package
 
-E to drop package
 
 
 ### Team: 
