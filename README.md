@@ -1,6 +1,17 @@
 # CS426 Final project NEON-BITES
 
 ![image](https://github.com/bjank2/cs426_NeonBites/assets/89926012/d294e279-ad82-42aa-b9e3-675b2acbf4d1)
+## Controls:
+Bike:
+R to ride bike.
+P to get off.
+Left shift to boost.
+Left alt to drift.
+
+Package:
+E to pickup package
+E to drop package
+
 
 ### Team: 
 1. Bianca Jankiewicz
