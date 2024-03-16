@@ -10,8 +10,8 @@ public class PlayerNavMesh : MonoBehaviour
     public Transform pointA;
     private Transform pointB;
     public GameObject lineRendered_GameObject;
-    private LineRenderer lineRenderer;
 
+    private LineRenderer lineRenderer;
     private Vector3[] pathCorners;
 
     [SerializeField] private Transform destinationAgent;
@@ -20,8 +20,11 @@ public class PlayerNavMesh : MonoBehaviour
     public float endWidth = 0.4f;
     public Material lineMaterial;
     public bool routeAssigned = false;
+    public GameObject currentPackage;
 
     private Animator _animator;
+    private Transform originalParent; // Variable to store the original parent
+
 
     private void Awake()
     {
@@ -74,16 +77,7 @@ public class PlayerNavMesh : MonoBehaviour
         // Check for input to trigger debug actions
         if (Keyboard.current.qKey.wasPressedThisFrame)
         {
-            // Print the name of the current state
-            Debug.Log("Current state: " + _animator.GetCurrentAnimatorStateInfo(0).ToString());
-
-            // Print the values of parameters, if any
-            Debug.Log("Jump parameter: " + _animator.GetBool("Jump"));
-            Debug.Log("Grounded parameter: " + _animator.GetBool("Grounded"));
-            Debug.Log("MotionSpeed parameter: " + _animator.GetFloat("MotionSpeed"));
-            Debug.Log("Speed parameter: " + _animator.GetFloat("Speed"));
-
-            _animator.SetTrigger("Pickup");
+            //_animator.SetTrigger("pickup");
         }
     }
 
@@ -95,7 +89,11 @@ public class PlayerNavMesh : MonoBehaviour
         routeAssigned = true;
 
         // add animation here
+    }
 
+    public void SwitchPlayer(Transform startPoint)
+    {
+        pointA = startPoint;
     }
 
     // Generate the route between two points using NavMesh
@@ -139,5 +137,62 @@ public class PlayerNavMesh : MonoBehaviour
         {
             return 0f; // Default height if raycast fails
         }
+    }
+
+    public void AssignPackage(GameObject package)
+    {
+        currentPackage = package;
+    }
+
+    public void TranslatePackage(GameObject dest)
+    {
+        // Before changing the parent, store the current parent
+        if (currentPackage.transform.parent != null)
+        {
+            originalParent = currentPackage.transform.parent;
+        }
+        else
+        {
+            // If the currentPackage has no parent, store null
+            originalParent = null;
+        }
+
+        // Change the parent to the destination GameObject
+        currentPackage.transform.SetParent(dest.transform);
+        currentPackage.transform.localPosition = Vector3.zero;
+    }
+
+    public void RestorePackageParent()
+    {
+        // If originalParent is not null, restore the parent
+        if (originalParent != null)
+        {
+            currentPackage.transform.SetParent(originalParent);
+        }
+        else
+        {
+            // If originalParent was null, detach the currentPackage (making it a root GameObject)
+            currentPackage.transform.SetParent(null);
+        }
+        // Optionally, reset the local position if necessary
+        currentPackage.transform.localPosition = Vector3.zero;
+    }
+
+
+    public void SetAnimState(string statename)
+    {
+        if(statename == "drive")
+        {
+            _animator.SetTrigger("drive");
+        }
+        if(statename == "detach")
+        {
+            _animator.SetTrigger("drive");
+        }
+        if (statename == "pickup")
+        {
+            _animator.SetTrigger("pickup");
+        }
+
     }
 }

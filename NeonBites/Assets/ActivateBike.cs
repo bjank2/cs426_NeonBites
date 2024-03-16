@@ -11,10 +11,11 @@ public class ActivateBike : MonoBehaviour
     public GameObject interactUI; // A UI element that says "Press E to Ride"
     public GameObject bikeCamera;
     public GameObject bike;
+    public GameObject playerSeat;
     private CameraFollow bikeCameraFollow;
     public GameObject playerCamera;
     public GameObject playerTP;
-
+    public GameObject packagePlace;
 
     private bool bikeMode = false;
     private bool insideSphere = false;
@@ -31,7 +32,7 @@ public class ActivateBike : MonoBehaviour
     {
         if(insideSphere)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.R))
             {
                 Switch2Bike();
             }
@@ -72,7 +73,10 @@ public class ActivateBike : MonoBehaviour
         playerTP.GetComponent<ThirdPersonController>().enabled = false;
 
         // Parent the player to the bike
-        playerTP.GetComponent<Attach2Bike>().AttachToBike(bike.transform);
+        playerTP.GetComponent<Attach2Bike>().AttachToBike(bike.transform ,playerSeat.transform);
+
+        //Transform package to seat
+        playerTP.GetComponent<PlayerNavMesh>().TranslatePackage(packagePlace);
 
 
     }
@@ -100,6 +104,9 @@ public class ActivateBike : MonoBehaviour
 
         // Unparent the player and reset its position if needed
         playerTP.GetComponent<Attach2Bike>().DetachFromBike();
+
+        //Transform package to holdpoint
+        playerTP.GetComponent<PlayerNavMesh>().RestorePackageParent();
     }
 
     private void OnTriggerEnter(Collider other)
