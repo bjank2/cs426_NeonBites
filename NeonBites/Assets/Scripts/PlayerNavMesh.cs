@@ -10,8 +10,8 @@ public class PlayerNavMesh : MonoBehaviour
     public Transform pointA;
     private Transform pointB;
     public GameObject lineRendered_GameObject;
-    private LineRenderer lineRenderer;
 
+    private LineRenderer lineRenderer;
     private Vector3[] pathCorners;
 
     [SerializeField] private Transform destinationAgent;
@@ -20,8 +20,11 @@ public class PlayerNavMesh : MonoBehaviour
     public float endWidth = 0.4f;
     public Material lineMaterial;
     public bool routeAssigned = false;
+    public GameObject currentPackage;
 
     private Animator _animator;
+    private Transform originalParent; // Variable to store the original parent
+
 
     private void Awake()
     {
@@ -60,7 +63,6 @@ public class PlayerNavMesh : MonoBehaviour
    
             if (routeAssigned)
             {
-
                 GenerateRoute(pointA.position, pointB.position);
             }
             else
@@ -75,16 +77,17 @@ public class PlayerNavMesh : MonoBehaviour
         // Check for input to trigger debug actions
         if (Keyboard.current.qKey.wasPressedThisFrame)
         {
-            // Print the name of the current state
-            Debug.Log("Current state: " + _animator.GetCurrentAnimatorStateInfo(0).ToString());
+            gameObject.GetComponent<CharacterController>().enabled = false;
+            _animator.enabled = false;
 
-            // Print the values of parameters, if any
-            Debug.Log("Jump parameter: " + _animator.GetBool("Jump"));
-            Debug.Log("Grounded parameter: " + _animator.GetBool("Grounded"));
-            Debug.Log("MotionSpeed parameter: " + _animator.GetFloat("MotionSpeed"));
-            Debug.Log("Speed parameter: " + _animator.GetFloat("Speed"));
+        }
 
-            _animator.SetTrigger("Pickup");
+        // Check for input to trigger debug actions
+        if (Keyboard.current.lKey.wasPressedThisFrame)
+        {
+
+            //_animator.SetTrigger("Stand");
+
         }
     }
 
@@ -96,7 +99,11 @@ public class PlayerNavMesh : MonoBehaviour
         routeAssigned = true;
 
         // add animation here
+    }
 
+    public void SwitchPlayer(Transform startPoint)
+    {
+        pointA = startPoint;
     }
 
     // Generate the route between two points using NavMesh
@@ -140,5 +147,74 @@ public class PlayerNavMesh : MonoBehaviour
         {
             return 0f; // Default height if raycast fails
         }
+    }
+
+    public void AssignPackage(GameObject package)
+    {
+        currentPackage = package;
+    }
+
+    public void TranslatePackage(GameObject dest)
+    {
+        if(currentPackage != null)
+        {
+            // Before changing the parent, store the current parent
+            if (currentPackage.transform.parent != null)
+            {
+                originalParent = currentPackage.transform.parent;
+            }
+            else
+            {
+                // If the currentPackage has no parent, store null
+                originalParent = null;
+            }
+
+            if (currentPackage != null)
+            {
+                // Change the parent to the destination GameObject
+                currentPackage.transform.SetParent(dest.transform);
+                currentPackage.transform.localPosition = Vector3.zero;
+            }
+        }
+
+    }
+
+    public void RestorePackageParent()
+    {
+        if (currentPackage != null)
+        {
+            // If originalParent is not null, restore the parent
+            if (originalParent != null)
+            {
+                currentPackage.transform.SetParent(originalParent);
+            }
+            else
+            {
+                // If originalParent was null, detach the currentPackage (making it a root GameObject)
+                currentPackage.transform.SetParent(null);
+            }
+
+            currentPackage.transform.localPosition = Vector3.zero;         // Optionally, reset the local position if necessary
+            
+        }
+
+    }
+
+
+    public void SetAnimState(string statename)
+    {
+        if(statename == "drive")
+        {
+            _animator.SetBool("Driving", true);
+        }
+        if(statename == "detach")
+        {
+            _animator.SetBool("Driving", false);
+        }
+        if (statename == "pickup")
+        {
+            _animator.SetTrigger("pickup");
+        }
+
     }
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
 public class PickupController : MonoBehaviour
@@ -62,9 +63,12 @@ public class PickupController : MonoBehaviour
             //setRoute.AssignRoute(); // function called to assign roue on mimimap
             Debug.Log(destination.name + " destination gameobject name  ");
             navMesh.AssignRoute(gameObject.transform, destination);
+            navMesh.AssignPackage(currentPickedObject);
+            //navMesh.SetAnimState("pickup");
 
         }
         if (rb != null) rb.isKinematic = true;
+        //currentPickedObject.GetComponent<BoxCollider>().enabled = false;
         if (DeliveryStatusTMP != null) DeliveryStatusTMP.text = "Delivery Status: In Progress";
 
     }
@@ -75,7 +79,9 @@ public class PickupController : MonoBehaviour
         var rb = currentPickedObject.GetComponent<Rigidbody>();
         if (rb != null) rb.isKinematic = false;
         currentPickedObject.transform.SetParent(null);
+        currentPickedObject.GetComponent<BoxCollider>().enabled = true;
         currentPickedObject = null;
+        navMesh.currentPackage = null; 
 
         navMesh.routeAssigned = false; // When we drop object, we disable the route on minimap
 
