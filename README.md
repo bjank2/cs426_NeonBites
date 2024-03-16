@@ -12,8 +12,8 @@ Left shift to boost.
 
 Left alt to drift.
 
-Package:
 
+Package:
 E to pickup package
 
 E to drop package
