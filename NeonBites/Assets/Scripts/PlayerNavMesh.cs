@@ -77,8 +77,6 @@ public class PlayerNavMesh : MonoBehaviour
         // Check for input to trigger debug actions
         if (Keyboard.current.qKey.wasPressedThisFrame)
         {
-            
-             
             gameObject.GetComponent<CharacterController>().enabled = false;
             _animator.enabled = false;
 
@@ -207,11 +205,11 @@ public class PlayerNavMesh : MonoBehaviour
     {
         if(statename == "drive")
         {
-            _animator.SetTrigger("drive");
+            _animator.SetBool("Driving", true);
         }
         if(statename == "detach")
         {
-            _animator.SetTrigger("drive");
+            _animator.SetBool("Driving", false);
         }
         if (statename == "pickup")
         {

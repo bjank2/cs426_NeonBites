@@ -22,6 +22,7 @@ public class ActivateBike : MonoBehaviour
     private bool bikeMode = false;
     private bool insideSphere = false;
 
+    public float ragdollSettleTime = 3f; // Time to wait for ragdoll to settle
 
     // Start is called before the first frame update
     void Start()
@@ -52,7 +53,7 @@ public class ActivateBike : MonoBehaviour
         if (bikeMode && CheckForCrash())
         {
             Debug.Log("Crashing...");
-            Crash();
+            //Crash();
         }
     }
 
@@ -61,7 +62,7 @@ public class ActivateBike : MonoBehaviour
 
         bikeMode = true;
 
-        IgnoreRagdollCollisions(playerTP, bike, true);
+        //IgnoreRagdollCollisions(playerTP, bike, true);
         // Calculate the relative position and rotation from the bike to the player camera
         Vector3 relativePosition = bike.transform.InverseTransformPoint(playerCamera.transform.position);
         Quaternion relativeRotation = Quaternion.Inverse(bike.transform.rotation) * playerCamera.transform.rotation;
@@ -103,23 +104,25 @@ public class ActivateBike : MonoBehaviour
         playerCamera.transform.localPosition = relativePosition;
         playerCamera.transform.localRotation = relativeRotation;
 
+        bike.GetComponent<WheelVehicle>().IsPlayer = false;
+
         playerCamera.SetActive(true);
         playerCamera.GetComponent<AudioListener>().enabled = true;
         playerTP.GetComponent<ThirdPersonController>().enabled = true;
 
         bikeCamera.SetActive(false) ;
         bikeCamera.GetComponent<AudioListener>().enabled = false;
-        bike.GetComponent<WheelVehicle>().IsPlayer = false;
-        bikeCamera.GetComponent<CameraFollow>().SetTargetIndex(default);
+        
+        bikeCamera.GetComponent<CameraFollow>().SetTargetIndex(3);
 
         // Unparent the player and reset its position if needed
-        playerTP.GetComponent<Attach2Bike>().DetachFromBike();
+        playerTP.GetComponent<Attach2Bike>().DetachFromBike(false);
 
         //Transform package to holdpoint
         playerTP.GetComponent<PlayerNavMesh>().RestorePackageParent();
 
-
-        IgnoreRagdollCollisions(playerTP, bike, false);
+        playerTP.GetComponent<Animator>().SetBool("Crashed", false);
+        //IgnoreRagdollCollisions(playerTP, bike, false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -171,78 +174,21 @@ public class ActivateBike : MonoBehaviour
 
     private void Crash()
     {
+        playerTP.GetComponent<Animator>().SetBool("Crashed", true);
+
         bikeMode = false;
         bikeCamera.GetComponent<CameraFollow>().SetTargetIndex(2);
+
         // Unparent the player and reset its position if needed
-        playerTP.GetComponent<Attach2Bike>().DetachFromBike();
+        playerTP.GetComponent<Attach2Bike>().DetachFromBike(true);
 
-        // Call function to switch to player control
-        //Switch2Player();
+        // Disable the player's Animator and CharacterController (or any similar script controlling the player's movement)
+        playerTP.GetComponent<Animator>().enabled = false;
+        playerTP.GetComponent<CharacterController>().enabled = false;
 
-        playerTP.GetComponent<Animator>().SetTrigger("Crash");
-
-        // Translate the player above the bike
-        Vector3 newPosition = bike.transform.position + Vector3.up * 10f; // Adjust the 3f to whatever height you want above the bike
-        StartCoroutine(SmoothTranslate(playerTP.transform, newPosition, 0.5f)); // Smooth translate over half a second
-
-
-    }
-
-    private void ApplyForceToRagdoll(GameObject player, Vector3 direction, float force)
-    {
-        Rigidbody[] rigidbodies = player.GetComponentsInChildren<Rigidbody>();
-        foreach (Rigidbody rb in rigidbodies)
-        {
-            // Apply a force to the Rigidbody components of the ragdoll
-            rb.AddForce(direction * force, ForceMode.VelocityChange);
-        }
-    }
-
-    private IEnumerator WaitForRagdollToSettle()
-    {
-        // Wait for the physics to simulate for a few frames to get accurate readings (optional)
-        yield return new WaitForFixedUpdate();
-
-        // Initialize a variable to track whether the player has settled
-        bool ragdollSettled = false;
-        while (!ragdollSettled)
-        {
-            // Assume the ragdoll has settled
-            ragdollSettled = true;
-
-            // Check all rigidbodies to see if they've come to a rest
-            Rigidbody[] ragdollRigidbodies = playerTP.GetComponentsInChildren<Rigidbody>();
-            foreach (Rigidbody rb in ragdollRigidbodies)
-            {
-                // If any rigidbody is still moving above a certain velocity threshold, the ragdoll has not settled
-                if (rb.velocity.sqrMagnitude > 0.1f) // Use a squared magnitude to avoid square root calculation for efficiency
-                {
-                    ragdollSettled = false;
-                    break; // Exit the loop as we found a Rigidbody that's still moving
-                }
-            }
-
-            // Wait until the next fixed frame to recheck velocities
-            yield return new WaitForFixedUpdate();
-        }
-
-        // Once settled, re-enable the Animator and CharacterController
-        Animator playerAnimator = playerTP.GetComponent<Animator>();
-        if (playerAnimator != null)
-        {
-            playerAnimator.enabled = true;
-        }
-
-        CharacterController characterController = playerTP.GetComponent<CharacterController>();
-        if (characterController != null)
-        {
-            characterController.enabled = true;
-        }
-
-        playerAnimator.SetTrigger("Stand");
-        Switch2Player();
-        
-
+        // Translate the player above the bike using SmoothTranslate
+        Vector3 newPosition = bike.transform.position + Vector3.up * 10f; // Adjust the height as needed
+        StartCoroutine(SmoothTranslate(playerTP.transform, newPosition, 0.2f)); // Smooth translate over 0.2 seconds
     }
 
     private IEnumerator SmoothTranslate(Transform objectToMove, Vector3 targetPosition, float duration)
@@ -253,18 +199,34 @@ public class ActivateBike : MonoBehaviour
         // Move to the target position
         objectToMove.position = targetPosition;
 
-        // Wait for the physics to simulate for a few frames to get accurate readings (optional)
+        // Wait for the specified duration
         yield return new WaitForSeconds(duration);
-
-        // Disable the player's Animator and ThirdPersonController (or any similar script controlling the player's movement)
-        playerTP.GetComponent<Animator>().enabled = false;
-
-        playerTP.GetComponent<CharacterController>().enabled = false;
-
-        // Enable the ragdoll by enabling the Rigidbody components and disabling the CharacterController
-        //EnableRagdoll(playerTP);
 
         // Start the coroutine to check for the ragdoll stopping
         StartCoroutine(WaitForRagdollToSettle());
+    }
+
+    private IEnumerator WaitForRagdollToSettle()
+    {
+        // Wait for the ragdoll settle time
+        yield return new WaitForSecondsRealtime(ragdollSettleTime);
+
+        // Re-enable the Animator and CharacterController
+        Animator playerAnimator = playerTP.GetComponent<Animator>();
+        if (playerAnimator != null)
+        {
+            playerAnimator.enabled = true;
+            playerAnimator.SetBool("Crashed", false);
+            playerAnimator.SetTrigger("Stand");
+        }
+
+        CharacterController characterController = playerTP.GetComponent<CharacterController>();
+        if (characterController != null)
+        {
+            characterController.enabled = true;
+        }
+
+        // Switch back to player control
+        Switch2Player();
     }
 }

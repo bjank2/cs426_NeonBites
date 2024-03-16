@@ -43,7 +43,7 @@ public class Attach2Bike : MonoBehaviour
         navmesh.SetAnimState("drive");
     }
 
-    public void DetachFromBike()
+    public void DetachFromBike(bool crashed)
     {
         isAttachedToBike = false;
         bikeTransform = null;
@@ -59,7 +59,12 @@ public class Attach2Bike : MonoBehaviour
         }
 
         navmesh.pointA =  gameObject.transform;
-        navmesh.SetAnimState("detach");
+
+        if(!crashed)
+        {
+            navmesh.SetAnimState("detach");
+        }
+        
     }
 
     void LateUpdate()
