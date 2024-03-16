@@ -77,7 +77,19 @@ public class PlayerNavMesh : MonoBehaviour
         // Check for input to trigger debug actions
         if (Keyboard.current.qKey.wasPressedThisFrame)
         {
-            //_animator.SetTrigger("pickup");
+            
+             
+            gameObject.GetComponent<CharacterController>().enabled = false;
+            _animator.enabled = false;
+
+        }
+
+        // Check for input to trigger debug actions
+        if (Keyboard.current.lKey.wasPressedThisFrame)
+        {
+
+            //_animator.SetTrigger("Stand");
+
         }
     }
 
@@ -146,36 +158,48 @@ public class PlayerNavMesh : MonoBehaviour
 
     public void TranslatePackage(GameObject dest)
     {
-        // Before changing the parent, store the current parent
-        if (currentPackage.transform.parent != null)
+        if(currentPackage != null)
         {
-            originalParent = currentPackage.transform.parent;
-        }
-        else
-        {
-            // If the currentPackage has no parent, store null
-            originalParent = null;
+            // Before changing the parent, store the current parent
+            if (currentPackage.transform.parent != null)
+            {
+                originalParent = currentPackage.transform.parent;
+            }
+            else
+            {
+                // If the currentPackage has no parent, store null
+                originalParent = null;
+            }
+
+            if (currentPackage != null)
+            {
+                // Change the parent to the destination GameObject
+                currentPackage.transform.SetParent(dest.transform);
+                currentPackage.transform.localPosition = Vector3.zero;
+            }
         }
 
-        // Change the parent to the destination GameObject
-        currentPackage.transform.SetParent(dest.transform);
-        currentPackage.transform.localPosition = Vector3.zero;
     }
 
     public void RestorePackageParent()
     {
-        // If originalParent is not null, restore the parent
-        if (originalParent != null)
+        if (currentPackage != null)
         {
-            currentPackage.transform.SetParent(originalParent);
+            // If originalParent is not null, restore the parent
+            if (originalParent != null)
+            {
+                currentPackage.transform.SetParent(originalParent);
+            }
+            else
+            {
+                // If originalParent was null, detach the currentPackage (making it a root GameObject)
+                currentPackage.transform.SetParent(null);
+            }
+
+            currentPackage.transform.localPosition = Vector3.zero;         // Optionally, reset the local position if necessary
+            
         }
-        else
-        {
-            // If originalParent was null, detach the currentPackage (making it a root GameObject)
-            currentPackage.transform.SetParent(null);
-        }
-        // Optionally, reset the local position if necessary
-        currentPackage.transform.localPosition = Vector3.zero;
+
     }
 
 

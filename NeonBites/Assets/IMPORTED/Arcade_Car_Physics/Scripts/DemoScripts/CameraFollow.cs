@@ -21,7 +21,7 @@ namespace VehicleBehaviour.Utils {
 		}
 
 		// Current target
-		[SerializeField] Transform target = default;
+		[SerializeField] public Transform target = default;
 
 		// ALl possible targets
 		[SerializeField] Transform[] targets = new Transform[0];

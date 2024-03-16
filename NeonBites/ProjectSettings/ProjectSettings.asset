@@ -898,11 +898,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 
+  cloudProjectId: a1c613cb-0bbe-4551-9ee1-8636686f7bff
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: NeonBites
+  organizationId: unity_217fbb2857de05cbc8d2
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 

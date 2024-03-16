@@ -68,7 +68,7 @@ public class PickupController : MonoBehaviour
 
         }
         if (rb != null) rb.isKinematic = true;
-        currentPickedObject.GetComponent<BoxCollider>().enabled = false;
+        //currentPickedObject.GetComponent<BoxCollider>().enabled = false;
         if (DeliveryStatusTMP != null) DeliveryStatusTMP.text = "Delivery Status: In Progress";
 
     }
