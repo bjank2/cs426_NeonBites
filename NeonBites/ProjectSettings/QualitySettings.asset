@@ -40,7 +40,7 @@ QualitySettings:
     asyncUploadBufferSize: 16
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
-    customRenderPipeline: {fileID: 11400000, guid: 049a626a5c4ccfe408e31dfaaed143d5,
+    customRenderPipeline: {fileID: 11400000, guid: a8043d9635ff2dd44b2391a89d1f6e6c,
       type: 2}
     excludedTargetPlatforms: []
   - serializedVersion: 2
@@ -77,7 +77,7 @@ QualitySettings:
     asyncUploadBufferSize: 16
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
-    customRenderPipeline: {fileID: 11400000, guid: b875949482e0b7a42ba78ab59213cba8,
+    customRenderPipeline: {fileID: 11400000, guid: ce3bdc411bc39e44d9635f03d5b46529,
       type: 2}
     excludedTargetPlatforms: []
   - serializedVersion: 2
@@ -114,7 +114,7 @@ QualitySettings:
     asyncUploadBufferSize: 16
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
-    customRenderPipeline: {fileID: 11400000, guid: aebe7e284ebb4b742b056c784308d85e,
+    customRenderPipeline: {fileID: 11400000, guid: 5185a4dec8ff8904d8956ce959d225b3,
       type: 2}
     excludedTargetPlatforms: []
   - serializedVersion: 2
@@ -151,7 +151,7 @@ QualitySettings:
     asyncUploadBufferSize: 16
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
-    customRenderPipeline: {fileID: 11400000, guid: 86eefad339adaf442981a1930c08849d,
+    customRenderPipeline: {fileID: 11400000, guid: 3daa2712d31e80048a4dffb9f411a4f9,
       type: 2}
     excludedTargetPlatforms: []
   - serializedVersion: 2
@@ -188,7 +188,7 @@ QualitySettings:
     asyncUploadBufferSize: 16
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
-    customRenderPipeline: {fileID: 11400000, guid: 1f9b73bfcab0ea34689e3b952aee85c7,
+    customRenderPipeline: {fileID: 11400000, guid: 4fad3449395897547bfaf5516b27f915,
       type: 2}
     excludedTargetPlatforms: []
   - serializedVersion: 2
@@ -225,7 +225,7 @@ QualitySettings:
     asyncUploadBufferSize: 16
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
-    customRenderPipeline: {fileID: 11400000, guid: b9e7ca8afca4ce1448e79999914436d7,
+    customRenderPipeline: {fileID: 11400000, guid: f4fa2a991c6efbe4f94c4785a092c369,
       type: 2}
     excludedTargetPlatforms: []
   m_PerPlatformDefaultQuality:
