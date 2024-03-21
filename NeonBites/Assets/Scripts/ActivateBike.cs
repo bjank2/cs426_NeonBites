@@ -17,12 +17,15 @@ public class ActivateBike : MonoBehaviour
     public GameObject playerCamera;
     public GameObject playerTP;
     public GameObject packagePlace;
-    public float crashAngle = 50f;
+    public float crashAngle = 75f;
 
     private bool bikeMode = false;
     private bool insideSphere = false;
 
     public float ragdollSettleTime = 3f; // Time to wait for ragdoll to settle
+    public GameObject speedometer;
+
+    public GameObject minimap_camera;
 
     // Start is called before the first frame update
     void Start()
@@ -88,7 +91,11 @@ public class ActivateBike : MonoBehaviour
         //Transform package to seat
         playerTP.GetComponent<PlayerNavMesh>().TranslatePackage(packagePlace);
 
+        speedometer.SetActive(true);
 
+        minimap_camera.GetComponent<Camera>().orthographicSize = 28;
+        minimap_camera.GetComponent<Minimap>().bikeVisible = false;
+        minimap_camera.GetComponent<Minimap>().mainCamera = bikeCamera.GetComponent<Camera>();
     }
 
     private void Switch2Player()
@@ -123,6 +130,13 @@ public class ActivateBike : MonoBehaviour
 
         playerTP.GetComponent<Animator>().SetBool("Crashed", false);
         //IgnoreRagdollCollisions(playerTP, bike, false);
+
+        speedometer.SetActive(false);
+
+        minimap_camera.GetComponent<Camera>().orthographicSize = 18;
+        minimap_camera.GetComponent<Minimap>().bikeVisible = true;
+
+        minimap_camera.GetComponent<Minimap>().mainCamera = playerCamera.GetComponent<Camera>();
     }
 
     private void OnTriggerEnter(Collider other)
