@@ -72,22 +72,64 @@ public class DroneAI : MonoBehaviour
 
     void DetectPlayer()
     {
-        Vector3 directionToPlayer = player.position - transform.position;
-        float angleToPlayer = Vector3.Angle(directionToPlayer, transform.forward);
+        Vector3 forward = transform.forward;
+        Vector3 toPlayer = (player.position - transform.position).normalized;
+        float angleToPlayer = Vector3.Angle(forward, toPlayer);
+        bool withinDetectionCone = angleToPlayer < detectionAngle;
 
-        if (directionToPlayer.magnitude < detectionRange && angleToPlayer < detectionAngle)
+        // Check distance and angle to player to see if within "detection cone"
+        if (Vector3.Distance(transform.position, player.position) <= detectionRange && withinDetectionCone)
         {
+            // Raycast to confirm line-of-sight
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, directionToPlayer.normalized, out hit, detectionRange))
+            if (Physics.Raycast(transform.position, toPlayer, out hit, detectionRange))
             {
-                if (hit.transform == player)
+                if (hit.transform.gameObject.tag == "Player")
                 {
                     currentState = DroneState.Detected;
-                    detected = true; // Assuming 'detected' changes visual/audio cues
+                    detected = true;
                 }
             }
+
+            // Debugging: Draw the line of sight in green if player is detected, red otherwise
+            Debug.DrawLine(transform.position, player.position, detected ? Color.green : Color.red);
         }
+
+        // Debugging: Draw the detection cone
+        DrawDetectionCone();
     }
+
+    void DrawDetectionCone()
+    {
+        float totalFOV = detectionAngle;
+        float rayRange = detectionRange;
+        float halfFOV = totalFOV / 2.0f;
+        Quaternion leftRayRotation = Quaternion.AngleAxis(-halfFOV, Vector3.up);
+        Quaternion rightRayRotation = Quaternion.AngleAxis(halfFOV, Vector3.up);
+        Vector3 leftRayDirection = leftRayRotation * transform.forward;
+        Vector3 rightRayDirection = rightRayRotation * transform.forward;
+        Debug.DrawRay(transform.position, leftRayDirection * rayRange, Color.blue);
+        Debug.DrawRay(transform.position, rightRayDirection * rayRange, Color.blue);
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, detectionRange);
+
+        float totalFOV = detectionAngle;
+        float rayRange = detectionRange;
+        float halfFOV = totalFOV / 2.0f;
+        Quaternion leftRayRotation = Quaternion.AngleAxis(-halfFOV, Vector3.up);
+        Quaternion rightRayRotation = Quaternion.AngleAxis(halfFOV, Vector3.up);
+        Vector3 leftRayDirection = leftRayRotation * transform.forward;
+        Vector3 rightRayDirection = rightRayRotation * transform.forward;
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(transform.position, leftRayDirection * rayRange);
+        Gizmos.DrawRay(transform.position, rightRayDirection * rayRange);
+    }
+
 
     void ChasePlayer()
     {
@@ -147,22 +189,36 @@ public class DroneAI : MonoBehaviour
 
     public void Changeheadlight()
     {
+        switch (currentState)
+        {
+            case DroneState.Idle:
+                spotlight.color = spotlights[0];
+                screen.GetComponent<Renderer>().material = screenMAT[0];
+                break;
+
+            case DroneState.Detected:
+                spotlight.color = spotlights[1];
+                screen.GetComponent<Renderer>().material = screenMAT[1];
+                break;
+
+            case DroneState.Fallback:
+                spotlight.color = spotlights[2];
+                screen.GetComponent<Renderer>().material = screenMAT[2];
+                break;
+        }
+
         if (detected)
         {
-            spotlight.color = spotlights[1];
-            screen.GetComponent<Renderer>().material = screenMAT[1];
+
         }
         else if (fallback)
         {
-            spotlight.color = spotlights[2];
-            screen.GetComponent<Renderer>().material = screenMAT[2];
+
 
         }
         else 
         {
-            spotlight.color = spotlights[0];
 
-            screen.GetComponent<Renderer>().material = screenMAT[0];
         }
 
     }
