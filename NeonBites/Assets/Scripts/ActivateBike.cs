@@ -27,6 +27,8 @@ public class ActivateBike : MonoBehaviour
 
     public GameObject minimap_camera;
 
+    public GameObject headlight;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,7 +58,7 @@ public class ActivateBike : MonoBehaviour
         if (bikeMode && CheckForCrash())
         {
             Debug.Log("Crashing...");
-            //Crash();
+            Crash();
         }
     }
 
@@ -96,6 +98,8 @@ public class ActivateBike : MonoBehaviour
         minimap_camera.GetComponent<Camera>().orthographicSize = 28;
         minimap_camera.GetComponent<Minimap>().bikeVisible = false;
         minimap_camera.GetComponent<Minimap>().mainCamera = bikeCamera.GetComponent<Camera>();
+
+        headlight.SetActive(true);
     }
 
     private void Switch2Player()
@@ -137,6 +141,8 @@ public class ActivateBike : MonoBehaviour
         minimap_camera.GetComponent<Minimap>().bikeVisible = true;
 
         minimap_camera.GetComponent<Minimap>().mainCamera = playerCamera.GetComponent<Camera>();
+
+        headlight.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
