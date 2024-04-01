@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +21,11 @@ public class Minimap : MonoBehaviour
     private Vector3 targetPositionBike;
     public bool bikeVisible = true;
 
+    public RectTransform enemyIconPrefab; // Assign this in the inspector
+    private List<RectTransform> enemyIcons = new List<RectTransform>();
+    private Dictionary<GameObject, RectTransform> enemyIconMap = new Dictionary<GameObject, RectTransform>();
+
+
     private void Start()
     {
         height = gameObject.transform.position.y;
@@ -35,14 +41,19 @@ public class Minimap : MonoBehaviour
     {
         // Set the target position for the minimap to follow the player
         targetPosition = new Vector3(player.position.x, height, player.position.z);
-        targetPositionBike = new Vector3(bike.position.x, height, bike.position.z);
+
+        if (bike!= null)
+        {
+            targetPositionBike = new Vector3(bike.position.x, height, bike.position.z);
+            Vector2 screenPositionBike = WorldToMiniMapViewport(bike.position);
+        }
 
         // Smoothly move the minimap towards the target position using lerp
         transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * followSpeed);
 
         // Update the position of the player icon relative to the minimap's position
         Vector2 screenPosition = WorldToMiniMapViewport(player.position);
-        Vector2 screenPositionBike = WorldToMiniMapViewport(bike.position);
+
 
         // Rotate the minimap to match the player camera's rotation (yaw only)
         transform.rotation = Quaternion.Euler( 90f, mainCamera.gameObject.transform.eulerAngles.y, 0f);
@@ -54,7 +65,12 @@ public class Minimap : MonoBehaviour
             CheckWithinMap(player, playerIcon, true);
         }
 
-        CheckWithinMap(bike, bikeIcon, bikeVisible);
+        if (bike != null)
+        {
+            CheckWithinMap(bike, bikeIcon, bikeVisible);
+        }
+
+        UpdateEnemyIcons();
     }
     private void UpdatePlayerIcon()
     {
@@ -132,5 +148,68 @@ public class Minimap : MonoBehaviour
 
         return new Vector2(localPosition.x / minimapRectTransform.rect.width, localPosition.z / minimapRectTransform.rect.height);
     }
+
+    private void UpdateEnemyIcons()
+    {
+        // Find all enemy GameObjects
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        // Update existing icons or deactivate them if the enemy is out of bounds
+        foreach (var enemyIconPair in new Dictionary<GameObject, RectTransform>(enemyIconMap))
+        {
+            GameObject enemy = enemyIconPair.Key;
+            RectTransform icon = enemyIconPair.Value;
+
+            if (!enemy || !Array.Exists(enemies, e => e == enemy))
+            {
+                Destroy(icon.gameObject); // Destroy the icon
+                enemyIconMap.Remove(enemy); // Remove from map
+            }
+            else
+            {
+                Vector3 viewportPosition = minimapCamera.WorldToViewportPoint(enemy.transform.position);
+
+                // Check if the enemy is within the camera's viewport
+                bool isWithinBounds = viewportPosition.z > 0 && viewportPosition.x > 0 && viewportPosition.x < 1 && viewportPosition.y > 0 && viewportPosition.y < 1;
+
+                // If the enemy is within bounds, update the icon's position and rotation
+                if (isWithinBounds)
+                {
+                    icon.gameObject.SetActive(true); // Make sure the icon is active
+
+                    // Update the icon's position and rotation
+                    icon.anchoredPosition = ViewportToAnchoredPosition(viewportPosition);
+                    //icon.localEulerAngles = new Vector3(0, 0, enemy.transform.eulerAngles.y);
+                }
+                else
+                {
+                    // If the enemy is out of bounds, deactivate the icon
+                    icon.gameObject.SetActive(false);
+                }
+            }
+        }
+
+        // Instantiate icons for new enemies
+        foreach (GameObject enemy in enemies)
+        {
+            if (!enemyIconMap.ContainsKey(enemy))
+            {
+                Vector3 viewportPosition = minimapCamera.WorldToViewportPoint(enemy.transform.position);
+                bool isWithinBounds = viewportPosition.z > 0 && viewportPosition.x > 0 && viewportPosition.x < 1 && viewportPosition.y > 0 && viewportPosition.y < 1;
+
+                if (isWithinBounds)
+                {
+                    // Instantiate a new icon for this enemy
+                    RectTransform icon = Instantiate(enemyIconPrefab, minimapRectTransform);
+                    enemyIconMap[enemy] = icon;
+
+                    // Update the icon's position and rotation
+                    icon.anchoredPosition = ViewportToAnchoredPosition(viewportPosition);
+                    //icon.localEulerAngles = new Vector3(0, 0, enemy.transform.eulerAngles.y);
+                }
+            }
+        }
+    }
+
 
 }
