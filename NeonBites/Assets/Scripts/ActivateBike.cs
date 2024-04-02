@@ -203,12 +203,13 @@ public class ActivateBike : MonoBehaviour
         playerTP.GetComponent<Attach2Bike>().DetachFromBike(true);
 
         // Disable the player's Animator and CharacterController (or any similar script controlling the player's movement)
-        playerTP.GetComponent<Animator>().enabled = false;
-        playerTP.GetComponent<CharacterController>().enabled = false;
+        //playerTP.GetComponent<Animator>().enabled = false;
+        //playerTP.GetComponent<CharacterController>().enabled = false;
 
         // Translate the player above the bike using SmoothTranslate
-        Vector3 newPosition = bike.transform.position + Vector3.up * 10f; // Adjust the height as needed
-        StartCoroutine(SmoothTranslate(playerTP.transform, newPosition, 0.2f)); // Smooth translate over 0.2 seconds
+        //Vector3 newPosition = bike.transform.position + Vector3.up * 10f; // Adjust the height as needed
+        //StartCoroutine(SmoothTranslate(playerTP.transform, newPosition, 0.2f)); // Smooth translate over 0.2 seconds
+        StartCoroutine(WaitForRagdollToSettle());
     }
 
     private IEnumerator SmoothTranslate(Transform objectToMove, Vector3 targetPosition, float duration)
