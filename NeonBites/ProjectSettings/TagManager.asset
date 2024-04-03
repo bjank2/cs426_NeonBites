@@ -7,8 +7,12 @@ TagManager:
   - CinemachineTarget
   - PickupObject
   - Enemy
+<<<<<<< Updated upstream
+=======
   - Grenade
   - NPC
+  - FollowCollider
+>>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX
@@ -21,7 +25,7 @@ TagManager:
   - Character
   - Ground
   - Package
-  - Enemy
+  - 
   - 
   - 
   - 

@@ -34,7 +34,8 @@ public class DropOffArea : MonoBehaviour
                 MoneyManager.Instance.AddMoney(50);
                 TMP_Money.text = "$" + MoneyManager.Instance.Money.ToString();
                 if (DeliveryStatusTMP != null) DeliveryStatusTMP.text = "Delivery Status: Complete";
-             
+                // Destroy(transform.parent.gameObject);
+                // Destroy(other.gameObject);
 
 
             }
@@ -44,7 +45,7 @@ public class DropOffArea : MonoBehaviour
                 Debug.Log("Wrong object delivered");
                 TMP_Money.text = "$" + MoneyManager.Instance.Money.ToString();
                 if (DeliveryStatusTMP != null) DeliveryStatusTMP.text = "Delivery Status: Failed";
-                Vector3 spawnPoint = new Vector3(transform.parent.position.x, 0f, transform.parent.position.z);
+                // Vector3 spawnPoint = new Vector3(transform.parent.position.x, 0f, transform.parent.position.z);
 
                Enemy enemyScript = FindObjectOfType<Enemy>();
                enemyScript.EnableAttacking();
@@ -53,8 +54,7 @@ public class DropOffArea : MonoBehaviour
             }
 
             navmesh.routeAssigned = false;
-            // Destroy(transform.parent.gameObject);
-            // Destroy(other.gameObject);
+
             
         }
     }

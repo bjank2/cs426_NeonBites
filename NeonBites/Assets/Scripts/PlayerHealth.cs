@@ -23,11 +23,13 @@ public class PlayerHealth : MonoBehaviour
         currentHealth -= amount;
         TriggerDamageAnimation();
         Debug.Log("Damage taken. Player health: " + currentHealth);
+         TMP_PlayerHealth.text = "Health: " + currentHealth;
         if (currentHealth <= 0f)
         {
             Die();
+             TMP_PlayerHealth.text = "Health: 0";
         }
-       TMP_PlayerHealth.text = "Health: " + currentHealth.ToString();
+      
 
     }
 
