@@ -32,6 +32,8 @@ The inclusion of an in-world AI NPC enriches player interactions and immersion w
 FSM Drone AI
 The implementation of a Finite State Machine (FSM) for AI drones introduces dynamic behavior and challenges for players to overcome. In the patrol scene, drones exhibit three distinct states: Patrol, Detected, and Fallback. During the Patrol state, drones autonomously navigate predefined routes, surveilling the area for intruders. When the player enters their detection range, drones transition to the Detected state, actively pursuing and engaging the player. If the player manages to evade detection or defeat the drones, they enter the Fallback state, returning to their patrol routes. This dynamic AI behavior adds tension, strategy, and replay value to player encounters, encouraging tactical decision-making and adaptability.
 
+Bayesian Network Attacking
+When the customer begins to attack the player for delivering the incorrect order, they attack utilizing a simplified Bayesian Network. The enemy will calculate the probability of deciding to attack based on the condition of their health. The lower their health is, the less likely they are to attack. This is calculated using a threshold for the decision making, to factor in the health when deciding to attack. The enemy will attack frequently in the beginning and then less likely toward the end of their life. 
 
 INSTRUCTIONS: HOW TO RUN - FOR GRADING
 
