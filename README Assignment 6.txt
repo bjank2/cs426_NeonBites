@@ -17,22 +17,22 @@ Textures
 Textures are extensively used throughout the game to create a visually immersive environment. Unique textures adorn the bike, NPC characters, buildings, cars, and other environmental assets, enhancing the aesthetic appeal of the cyberpunk-themed world.
 
 Mecanim
-Player Controller Mecanim: The player controller implements Mecanim for walk, run, idle, and driving animations, adding fluidity and realism to player movements.
-Dance/Punching Mecanim: In the playground scene, players can control the character to perform dance or punching animations, providing entertainment and interaction opportunities.
-Enemy Mecanim: Enemies feature their own Mecanim animations, including idle and fighting animations, adding diversity and challenge to encounters.
+Player Controller Mecanim [Minimap Scene Player controller - (Pranav Mishra)]: The player controller implements Mecanim for walk, run, idle, and driving animations, adding fluidity and realism to player movements. 
+Dance/Punching Mecanim [Playground scene player controller - (Alexa Osuna)]: In the playground scene, players can control the character to perform dance or punching animations, providing entertainment and interaction opportunities.
+Enemy Mecanim [Minimap scene enemy controller - (Bianca Jankiewicz)]: Enemies feature their own Mecanim animations, including idle and fighting animations, adding diversity and challenge to encounters.
 	All of these are fully rigged characters.
 
 AI Constructs
-Pathfinding with NavMesh
+Pathfinding with NavMesh - (Pranav Mishra - Grad student)
 The implementation of pathfinding with NavMesh significantly enhances player navigation and exploration within the game world. For example, in the minimap scene, players can interact with the map to generate routes between points of interest. This feature allows players to plan their journeys efficiently, discover hidden locations, and avoid obstacles or hostile areas. Additionally, NPCs and AI drones utilize pathfinding to patrol designated areas or pursue the player, adding dynamic challenges and opportunities for strategic gameplay.
 
-In-World AI NPC (LLM)
+In-World AI NPC (LLM) - (Pranav Mishra - Grad student)
 The inclusion of an in-world AI NPC enriches player interactions and immersion within the game environment. In the minimap scene, players encounter the NPC owner of a coffee shop. Players can engage in dialogue with the NPC, asking about their order status or engaging in casual conversation. The NPC's responses and actions, such as spawning delivery items or providing hints, contribute to the game's narrative progression and provide meaningful objectives for players to pursue.
 
-FSM Drone AI
+FSM Drone AI (Alexa Osuna)
 The implementation of a Finite State Machine (FSM) for AI drones introduces dynamic behavior and challenges for players to overcome. In the patrol scene, drones exhibit three distinct states: Patrol, Detected, and Fallback. During the Patrol state, drones autonomously navigate predefined routes, surveilling the area for intruders. When the player enters their detection range, drones transition to the Detected state, actively pursuing and engaging the player. If the player manages to evade detection or defeat the drones, they enter the Fallback state, returning to their patrol routes. This dynamic AI behavior adds tension, strategy, and replay value to player encounters, encouraging tactical decision-making and adaptability.
 
-Bayesian Network Attacking
+Bayesian Network Attacking (Bianca Jankiewicz)
 When the customer begins to attack the player for delivering the incorrect order, they attack utilizing a simplified Bayesian Network. The enemy will calculate the probability of deciding to attack based on the condition of their health. The lower their health is, the less likely they are to attack. This is calculated using a threshold for the decision making, to factor in the health when deciding to attack. The enemy will attack frequently in the beginning and then less likely toward the end of their life. 
 
 INSTRUCTIONS: HOW TO RUN - FOR GRADING
