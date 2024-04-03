@@ -31,7 +31,7 @@ public class Enemy : MonoBehaviour
             if (attackDecision > attackThreshold)
             {
                 AttackPlayer();
-                nextAttackTime = Time.time + 13f / attackRate;
+                nextAttackTime = Time.time + 15f / attackRate;
 
             }
         }
