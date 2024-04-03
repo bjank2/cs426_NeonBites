@@ -5621,6 +5621,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7f5073d0654c94fb79afeb22eca5b531,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f5073d0654c94fb79afeb22eca5b531, type: 3}
 --- !u!1 &245296580
@@ -7771,7 +7776,7 @@ MonoBehaviour:
   mainCamera: {fileID: 1173035716}
   bikeIcon: {fileID: 1206933662}
   bikeVisible: 1
-  enemyIconPrefab: {fileID: 0}
+  enemyIconPrefab: {fileID: 1254550568}
 --- !u!224 &347460439
 RectTransform:
   m_ObjectHideFlags: 0
@@ -25740,46 +25745,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1042150932}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1043078236 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7f5073d0654c94fb79afeb22eca5b531,
-    type: 3}
-  m_PrefabInstance: {fileID: 1204084148}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1043078237
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1043078236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e28e2009459fa46aaaf2a394d4c1b800, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1
-  target: {fileID: 1762682262}
---- !u!95 &1043078238
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1043078236}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 402f90f87a338496c951ae8a3cf5b8e8, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
 --- !u!1001 &1045088523
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30548,80 +30513,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1202551414}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1204084148
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 7f5073d0654c94fb79afeb22eca5b531,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 7f5073d0654c94fb79afeb22eca5b531,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.53
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 7f5073d0654c94fb79afeb22eca5b531,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.16500002
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 7f5073d0654c94fb79afeb22eca5b531,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 10.097554
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 7f5073d0654c94fb79afeb22eca5b531,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: -0.061480388
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 7f5073d0654c94fb79afeb22eca5b531,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 7f5073d0654c94fb79afeb22eca5b531,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.9981083
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 7f5073d0654c94fb79afeb22eca5b531,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 7f5073d0654c94fb79afeb22eca5b531,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 7f5073d0654c94fb79afeb22eca5b531,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 187.05
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 7f5073d0654c94fb79afeb22eca5b531,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 7f5073d0654c94fb79afeb22eca5b531,
-        type: 3}
-      propertyPath: m_Name
-      value: Chase Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 7f5073d0654c94fb79afeb22eca5b531,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 7f5073d0654c94fb79afeb22eca5b531, type: 3}
 --- !u!1001 &1204261361
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38959,7 +38850,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 36078ab0369161e49a29d349ae3e0739, type: 3}
   m_Controller: {fileID: 9100000, guid: ad7ce1f6c1a7c45eb8f24c3946340ccd, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -38984,6 +38875,10 @@ MonoBehaviour:
   attackRate: 2
   TMP_EnemyHealth: {fileID: 1958036491}
   animator: {fileID: 1504872478}
+  attackDistance: 2
+  speed: 5
+  target: {fileID: 1762682262}
+  rotationSpeed: 10
 --- !u!1 &1508660669
 GameObject:
   m_ObjectHideFlags: 0
@@ -47085,7 +46980,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1789402785
 GameObject:
