@@ -583,7 +583,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d9b956ad03536d948863f106db5cbc2b,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: d9b956ad03536d948863f106db5cbc2b,
         type: 3}
@@ -3642,7 +3642,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -100, y: 100}
+  m_AnchoredPosition: {x: -300, y: 100}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1470290966
@@ -3665,8 +3665,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "[BIKE CONTROLS]\nASWD: Movement\nL. SHIFT: Boost\nL. CTRL: Brake\nL. ALT:
-    Drift\nP: Get off \nR: Ride"
+  m_text: "ASWD: Movement\nRight click + G : to throw grenade \n\nDrone will disengage
+    when hit \nwith a grenade explosion\nand go to fallback position"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 59ee34472c5892a4196858080cc2141e, type: 2}
   m_sharedMaterial: {fileID: -7472687217148228796, guid: 59ee34472c5892a4196858080cc2141e,
