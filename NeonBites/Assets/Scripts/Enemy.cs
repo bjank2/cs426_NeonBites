@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class Enemy : MonoBehaviour
 {
     public float EnemyHealth = 100f;
@@ -51,7 +50,6 @@ public class Enemy : MonoBehaviour
                 }
                 else
                 {
-
                     animator.SetBool("Move", false);
                     if (canAttack && Time.time >= nextAttackTime)
                     {
@@ -61,7 +59,8 @@ public class Enemy : MonoBehaviour
                         if (attackDecision > attackThreshold)
                         {
                             AttackPlayer();
-                            nextAttackTime = Time.time + 15f / attackRate;
+                            animator.SetTrigger("Attack");
+                            nextAttackTime = Time.time + 10f / attackRate;
 
                         }
                     }
@@ -74,6 +73,7 @@ public class Enemy : MonoBehaviour
             Debug.Log("Attacking player");
             if (playerHealth != null)
             {
+                animator.SetBool("Move", false);
                 Debug.Log("Player Health is not null");
                 playerHealth.TakeDamage(7f);
             }
