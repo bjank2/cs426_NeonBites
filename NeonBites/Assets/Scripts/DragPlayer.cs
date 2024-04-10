@@ -47,12 +47,15 @@ public class DragPlayer : MonoBehaviour
     private bool isRightMouseButtonPressed = false; // Tracks the state of the right mouse button
 
     public TextMeshProUGUI modetext;
+    public GameObject LoadBtn;
+
     void Start()
     {
         originalPosition = transform.position; // Store the original position of the camera
         originalCameraRotation = playerCamera.transform.localEulerAngles; // Store the original rotation of the camera
         modetext.text = "VIEW MODE";
         target_rn = playerMesh;
+        LoadBtn.SetActive(false);
     } 
 
     void Update()
@@ -321,12 +324,16 @@ public class DragPlayer : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             modetext.text = "VIEW MODE";
+
+            LoadBtn.SetActive(false);
         }
         else // If cursor is not visible, unlock it and show for UI interaction
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             modetext.text = "BUTTON MODE";
+
+            LoadBtn.SetActive(true);
         }
     }
 

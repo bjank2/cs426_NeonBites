@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -34,9 +33,14 @@ public class DroneAI : MonoBehaviour
     public GameObject fallbackEffect;
     public GameObject detectedEffect;
 
+    private AudioSource audioSource;
+
+    public AudioClip[] audioClips;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        audioSource= GetComponent<AudioSource>();
     }
 
     void Update()
@@ -88,11 +92,25 @@ public class DroneAI : MonoBehaviour
                 {
                     currentState = DroneState.Detected;
                     detected = true;
+
+                    Debug.Log("DETECTED LMAOOOO");
                 }
             }
 
+            Color debugColor = Color.white;
             // Debugging: Draw the line of sight in green if player is detected, red otherwise
             Debug.DrawLine(transform.position, player.position, detected ? Color.green : Color.red);
+
+            Debug.DrawLine(transform.position, player.position, detected ? debugColor = Color.green : debugColor = Color.red);
+
+            if(debugColor == Color.red)
+            {
+                currentState = DroneState.Detected;
+                detected = true;
+
+                Debug.Log("DETECTED LMAOOOO");
+            }
+
         }
 
         // Debugging: Draw the detection cone
@@ -133,6 +151,13 @@ public class DroneAI : MonoBehaviour
 
     void ChasePlayer()
     {
+        audioSource.clip = audioClips[0];
+
+        if (!audioSource.isPlaying)
+        {
+            audioSource.Play();
+        }
+
         agent.SetDestination(player.position);
         fallbackEffect.SetActive(false);
         detectedEffect.SetActive(true);
@@ -145,11 +170,18 @@ public class DroneAI : MonoBehaviour
         fallbackEffect.SetActive(true);
         detectedEffect.SetActive(false);
 
+        audioSource.clip = audioClips[1];
+
+        if (!audioSource.isPlaying)
+        {
+            audioSource.Play();
+        }
+
         if (Vector3.Distance(transform.position, fallbackPoint.position) < agent.stoppingDistance)
         {
             // Optionally reset to Idle or maintain Fallback behavior
             // currentState = DroneState.Idle;
-
+            // Start Couroutine  set to idel/ repair
         }
     }
 
