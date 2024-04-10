@@ -1,0 +1,5 @@
+Schedule and deliverable:
+initialize game files -- Thursday by 5pm (estimate: 1 hr)
+pick up / drop off functionality -- Mon by 12pm (estimate: 4 hrs)
+
+
