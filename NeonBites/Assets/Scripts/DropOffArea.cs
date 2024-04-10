@@ -15,10 +15,12 @@ public class DropOffArea : MonoBehaviour
     public int requiredPickupID;
     public PlayerNavMesh navmesh;
 
+    public TMPro.TextMeshProUGUI deleteButton;
+
 
     private void Start()
     {
-        navmesh = FindObjectOfType<PlayerNavMesh>();    
+        navmesh = FindObjectOfType<PlayerNavMesh>();
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -27,35 +29,38 @@ public class DropOffArea : MonoBehaviour
         if (other.CompareTag("PickupObject"))
         {
             PickupObject pickupObject = other.GetComponent<PickupObject>();
-
+            Debug.Log("pickupObject.pickupID: " + pickupObject.pickupID);
+            Debug.Log("requiredPickupID: " + requiredPickupID);
             if (pickupObject != null && pickupObject.pickupID == requiredPickupID)
             {
                 Debug.Log("Correct object delivered");
                 MoneyManager.Instance.AddMoney(50);
                 TMP_Money.text = "$" + MoneyManager.Instance.Money.ToString();
                 if (DeliveryStatusTMP != null) DeliveryStatusTMP.text = "Delivery Status: Complete";
-                // Destroy(transform.parent.gameObject);
-                // Destroy(other.gameObject);
+                Destroy(transform.parent.gameObject);
 
 
             }
 
             else
             {
+                deleteButton.gameObject.SetActive(false);
+
                 Debug.Log("Wrong object delivered");
                 TMP_Money.text = "$" + MoneyManager.Instance.Money.ToString();
                 if (DeliveryStatusTMP != null) DeliveryStatusTMP.text = "Delivery Status: Failed";
                 // Vector3 spawnPoint = new Vector3(transform.parent.position.x, 0f, transform.parent.position.z);
 
-               Enemy enemyScript = FindObjectOfType<Enemy>();
-               enemyScript.EnableAttacking();
-    
-            
+                Enemy enemyScript = FindObjectOfType<Enemy>();
+                enemyScript.EnableAttacking();
+                Destroy(transform.parent.gameObject);
+
             }
 
             navmesh.routeAssigned = false;
+            Destroy(other.gameObject);
 
-            
+
         }
     }
 }

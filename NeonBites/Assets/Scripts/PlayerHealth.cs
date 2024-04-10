@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+
 public class PlayerHealth : MonoBehaviour
 {
     public float maxHealth = 100f;
@@ -10,11 +11,16 @@ public class PlayerHealth : MonoBehaviour
     public bool isDead = false;
     public Animator animator;
 
+    public UnityEngine.UI.Slider healthBar;
+    public UnityEngine.UI.Image healthBarFill;
     [SerializeField] private TMPro.TextMeshProUGUI TMP_PlayerHealth;
 
     void Start()
     {
         currentHealth = maxHealth;
+        healthBar.value = 100;
+        healthBarFill.color = Color.green;
+
     }
 
 
@@ -28,9 +34,9 @@ public class PlayerHealth : MonoBehaviour
         if (isDead) return;
         currentHealth -= amount;
         TriggerDamageAnimation();
-        Debug.Log("Damage taken. Player health: " + currentHealth);
         TMP_PlayerHealth.text = "Health: " + currentHealth;
-
+        healthBar.value = currentHealth;
+        healthBarFill.color = Color.Lerp(Color.red, Color.green, currentHealth / maxHealth);
         if (currentHealth <= 0f)
         {
             Die();

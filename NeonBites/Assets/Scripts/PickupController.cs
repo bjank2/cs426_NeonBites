@@ -15,10 +15,13 @@ public class PickupController : MonoBehaviour
 
     public ActivatePickup actPickup;
 
+    public TMPro.TextMeshProUGUI deleteButton;
+
     private void Start()
     {
         setRoute = GetComponent<SetRoute>();
         navMesh = FindObjectOfType<PlayerNavMesh>();
+        if (deleteButton != null) deleteButton.gameObject.SetActive(false);
     }
     void Update()
     {
@@ -33,6 +36,29 @@ public class PickupController : MonoBehaviour
                 DropObject();
             }
         }
+
+        if (Keyboard.current.xKey.wasPressedThisFrame)
+        {
+
+            DeleteObject();
+            if (deleteButton != null) deleteButton.gameObject.SetActive(false);
+
+
+        }
+        if (deleteButton != null)
+        {
+            deleteButton.gameObject.SetActive(currentPickedObject != null);
+        }
+
+        if (currentPickedObject == null)
+        {
+
+            if (deleteButton != null) deleteButton.gameObject.SetActive(false);
+
+
+        }
+
+
     }
     private void TryPickupObject()
     {
@@ -50,7 +76,8 @@ public class PickupController : MonoBehaviour
     }
 
     private void PickupObject(GameObject obj)
-    { 
+    {
+
         currentPickedObject = obj;
         currentPickedObject.transform.SetParent(holdPoint);
         currentPickedObject.transform.localPosition = Vector3.zero;
@@ -81,10 +108,24 @@ public class PickupController : MonoBehaviour
         currentPickedObject.transform.SetParent(null);
         currentPickedObject.GetComponent<BoxCollider>().enabled = true;
         currentPickedObject = null;
-        navMesh.currentPackage = null; 
+        navMesh.currentPackage = null;
 
         navMesh.routeAssigned = false; // When we drop object, we disable the route on minimap
 
     }
 
+    public void DeleteObject()
+    {
+        if (currentPickedObject != null)
+        {
+            Destroy(currentPickedObject);
+            currentPickedObject = null;
+            navMesh.currentPackage = null;
+            navMesh.routeAssigned = false;
+            if (DeliveryStatusTMP != null) DeliveryStatusTMP.text = "Status: Cancelled Order";
+            Debug.Log("Object deleted");
+
+            if (deleteButton != null) deleteButton.gameObject.SetActive(false);
+        }
+    }
 }

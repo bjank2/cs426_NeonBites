@@ -19,10 +19,15 @@ public class Enemy : MonoBehaviour
     public Transform target;
     public float rotationSpeed = 10.0f;
     private bool canMove = false;
+
+    public UnityEngine.UI.Slider healthBar;
+    public UnityEngine.UI.Image healthBarFill;
     void Start()
     {
         animator = GetComponent<Animator>();
         playerHealth = GameObject.FindObjectOfType<PlayerHealth>();
+        healthBar.value = 100;
+        healthBarFill.color = Color.green;
 
     }
 
@@ -60,7 +65,7 @@ public class Enemy : MonoBehaviour
                         {
                             AttackPlayer();
                             animator.SetTrigger("Attack");
-                            nextAttackTime = Time.time + 10f / attackRate;
+                            nextAttackTime = Time.time + 3f / attackRate;
 
                         }
                     }
@@ -84,8 +89,11 @@ public class Enemy : MonoBehaviour
             float attackDistanceToPlayer = Vector3.Distance(transform.position, playerHealth.transform.position);
             if (attackDistanceToPlayer <= attackDistance)
             {
-                TMP_EnemyHealth.text = "Enemy Health: " + EnemyHealth.ToString();
                 EnemyHealth -= amount;
+                TMP_EnemyHealth.text = "Enemy Health: " + EnemyHealth.ToString();
+                healthBarFill.color = Color.Lerp(Color.red, Color.green, EnemyHealth / 100);
+                healthBar.value = EnemyHealth;
+
                 if (EnemyHealth <= 0f)
                 {
                     TMP_EnemyHealth.text = "Enemy Health: 0";
