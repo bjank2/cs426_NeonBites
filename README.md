@@ -4,7 +4,8 @@
 ## Build Files
 https://drive.google.com/drive/folders/1EANLb4bnvr2qkCM7hYo5mGTDaXVdcxZa?usp=sharing 
 
-
+## Design Doc
+https://docs.google.com/document/d/1csaCGoZ18wMGdjU5ncxgRVxiKu6TTFO754db7zGnMY4/edit?usp=sharing 
 
 ### Team: 
 1. Bianca Jankiewicz
