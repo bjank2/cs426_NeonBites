@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SetRoute : MonoBehaviour
+public class PauseButtonScript : MonoBehaviour
 {
-    public PlayerNavMesh navMesh;
-    public Transform destination;
 
+    public GameObject background;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,11 +18,17 @@ public class SetRoute : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void BackgroundddAct()
     {
-        if(other.gameObject.tag == "Player")
+        if (background.activeSelf)
         {
-            //AssignRoute();
+            background.SetActive(false);
+        }
+        else
+        {
+            background.SetActive(true);
         }
     }
+
+
 }

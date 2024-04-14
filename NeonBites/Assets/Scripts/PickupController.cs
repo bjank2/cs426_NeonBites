@@ -17,6 +17,9 @@ public class PickupController : MonoBehaviour
 
     public TMPro.TextMeshProUGUI deleteButton;
 
+
+    public TMPro.TextMeshProUGUI currentTaskTxt;
+
     private void Start()
     {
         setRoute = GetComponent<SetRoute>();
@@ -93,6 +96,8 @@ public class PickupController : MonoBehaviour
             navMesh.AssignPackage(currentPickedObject);
             //navMesh.SetAnimState("pickup");
 
+            currentTaskTxt.text = "Deliver the order.";
+
         }
         if (rb != null) rb.isKinematic = true;
         //currentPickedObject.GetComponent<BoxCollider>().enabled = false;
@@ -112,6 +117,8 @@ public class PickupController : MonoBehaviour
 
         navMesh.routeAssigned = false; // When we drop object, we disable the route on minimap
 
+        currentTaskTxt.text = "--";
+
     }
 
     public void DeleteObject()
@@ -126,6 +133,8 @@ public class PickupController : MonoBehaviour
             Debug.Log("Object deleted");
 
             if (deleteButton != null) deleteButton.gameObject.SetActive(false);
+
+            currentTaskTxt.text = "--";
         }
     }
 }

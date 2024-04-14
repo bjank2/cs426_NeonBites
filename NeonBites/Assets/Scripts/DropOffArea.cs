@@ -16,6 +16,7 @@ public class DropOffArea : MonoBehaviour
     public PlayerNavMesh navmesh;
 
     public TMPro.TextMeshProUGUI deleteButton;
+    public TMPro.TextMeshProUGUI currentTaskTxt;
 
 
     private void Start()
@@ -33,6 +34,8 @@ public class DropOffArea : MonoBehaviour
             Debug.Log("requiredPickupID: " + requiredPickupID);
             if (pickupObject != null && pickupObject.pickupID == requiredPickupID)
             {
+                currentTaskTxt.text = "Select new order from tab";
+
                 Debug.Log("Correct object delivered");
                 MoneyManager.Instance.AddMoney(50);
                 TMP_Money.text = "$" + MoneyManager.Instance.Money.ToString();
