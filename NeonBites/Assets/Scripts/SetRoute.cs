@@ -26,10 +26,4 @@ public class SetRoute : MonoBehaviour
             //AssignRoute();
         }
     }
-
-    public void AssignRoute()
-    {
-        navMesh.AssignRoute(gameObject.transform, destination);
-        Debug.Log("Assign route called");
-    }
 }

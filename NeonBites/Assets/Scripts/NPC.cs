@@ -4,6 +4,7 @@ using UnityEngine;
 using Inworld.UI;
 using System;
 using Inworld.Interactions;
+using TMPro;
 
 public class NPC : MonoBehaviour
 {
@@ -13,8 +14,24 @@ public class NPC : MonoBehaviour
     private bool phraseMatched = false; // Flag to indicate a phrase has been matched
 
     public InworldAudioInteraction iai;
-
     public GameObject item;
+    public GameObject promptTxt;
+
+    public bool isPlayerNear = false;
+    public bool isConversationActive = false;
+
+    public Camera mainCamera;     // The main player camera
+    public Camera npcCamera;      // The camera attached to the NPC
+
+    public GameObject player;
+
+    public GameObject ExtraCanvas;
+    public GameObject gameCanvas;
+
+    public GameObject itemRecTxt;
+
+    public AudioSource audiosrc;
+    public AudioClip openConv;
 
     // Start is called before the first frame update
     void Start()
@@ -22,10 +39,37 @@ public class NPC : MonoBehaviour
         // Initialize things here if needed
         iai = GetComponent<InworldAudioInteraction>();
         iai.enabled = false;
+
+        audiosrc = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
+    {
+
+        if (isPlayerNear)
+        {
+            // Display prompt, e.g., using GUI or a UI Text element
+            // Debug.Log("Press E to talk");
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (!isConversationActive)
+                {
+                    StartConversation();
+                }
+                else
+                {
+                    EndConversation();
+                }
+            }
+        }
+
+        MatchPhase();
+
+    }
+
+    private void MatchPhase()
     {
         // If a phrase has been matched, do nothing
         if (phraseMatched) return;
@@ -48,7 +92,7 @@ public class NPC : MonoBehaviour
                         Debug.Log($"Phrase from {chatBubble.Title.text}: '{phrase}' found in ChatBubble: {chatBubble.Text}");
                         // Call the function here and set the flag
                         SomeFunction(phrase); // Replace with your actual function name
-
+                        itemRecTxt.SetActive(true);
                         phraseMatched = true; // Set the flag to true as the phrase has been matched
                         return; // Exit the loop and method as we've found a match
                     }
@@ -74,7 +118,12 @@ public class NPC : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            iai.enabled = true;
+            promptTxt.SetActive(true);
+            StartCoroutine(DeactivateCoroutine());
+            isPlayerNear = true;
+
+            player = other.gameObject;
+
         }
     }
 
@@ -82,7 +131,48 @@ public class NPC : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            iai.enabled = false;
+            promptTxt.SetActive(false);
+            isPlayerNear = false;
+
         }
+    }
+
+    IEnumerator DeactivateCoroutine()
+    {
+        // Wait for the specified delay
+        yield return new WaitForSeconds(4f);
+
+        // Deactivate the GameObject
+        promptTxt.SetActive(false);
+    }
+
+    void StartConversation()
+    {
+        npcCamera.enabled = true;
+        mainCamera.enabled = false;
+        isConversationActive = true;
+        iai.enabled = true;
+
+        player.SetActive(false);
+
+        gameCanvas.SetActive(false);
+        ExtraCanvas.SetActive(true);
+
+        audiosrc.PlayOneShot(openConv);
+
+    }
+
+    void EndConversation()
+    {
+        npcCamera.enabled = false;
+        mainCamera.enabled = true;
+        isConversationActive = false;
+        iai.enabled = false;
+
+
+        player.SetActive(true);
+
+        gameCanvas.SetActive(true);
+        ExtraCanvas.SetActive(false);
     }
 }

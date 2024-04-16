@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
+using static UnityEngine.Rendering.ReloadAttribute;
 
 public class PlayerNavMesh : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class PlayerNavMesh : MonoBehaviour
     public float endWidth = 0.4f;
     public Material lineMaterial;
     public bool routeAssigned = false;
+    public bool orderActivated = false;
+    public bool orderPicked = false;
     public GameObject currentPackage;
 
     private Animator _animator;
@@ -97,14 +100,19 @@ public class PlayerNavMesh : MonoBehaviour
         pointB = endPoint;
         destinationAgent = endPoint;
         routeAssigned = true;
-
-        // add animation here
+        orderActivated = true;
     }
 
     public void SwitchPlayer(Transform startPoint)
     {
         pointA = startPoint;
     }
+
+    public void GenerateRouteToPackage(Transform packageTransform)
+    {
+        AssignRoute(transform, packageTransform);
+    }
+
 
     // Generate the route between two points using NavMesh
     void GenerateRoute(Vector3 startPoint, Vector3 endPoint)
@@ -134,20 +142,6 @@ public class PlayerNavMesh : MonoBehaviour
     }
 
 
-    // Get the height at a specific point on the terrain
-    float GetHeightAtPoint(Vector3 point)
-    {
-        // Cast a ray from above to find the height of the terrain or other objects
-        RaycastHit hit;
-        if (Physics.Raycast(new Vector3(point.x, 1000f, point.z), Vector3.down, out hit, Mathf.Infinity))
-        {
-            return hit.point.y;
-        }
-        else
-        {
-            return 0f; // Default height if raycast fails
-        }
-    }
 
     public void AssignPackage(GameObject package)
     {
@@ -200,6 +194,22 @@ public class PlayerNavMesh : MonoBehaviour
 
     }
 
+
+
+    // Get the height at a specific point on the terrain
+    float GetHeightAtPoint(Vector3 point)
+    {
+        // Cast a ray from above to find the height of the terrain or other objects
+        RaycastHit hit;
+        if (Physics.Raycast(new Vector3(point.x, 1000f, point.z), Vector3.down, out hit, Mathf.Infinity))
+        {
+            return hit.point.y;
+        }
+        else
+        {
+            return 0f; // Default height if raycast fails
+        }
+    }
 
     public void SetAnimState(string statename)
     {
