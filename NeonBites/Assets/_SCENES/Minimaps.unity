@@ -27396,7 +27396,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Press E to pickup
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 59ee34472c5892a4196858080cc2141e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7bc6bcb709d844ff7b91616b22634c8f, type: 2}
   m_sharedMaterial: {fileID: -7472687217148228796, guid: 59ee34472c5892a4196858080cc2141e,
     type: 2}
   m_fontSharedMaterials: []
@@ -27461,7 +27461,7 @@ MonoBehaviour:
   m_margin: {x: -124.08887, y: 0, z: -126.17435, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &934763510
@@ -32224,7 +32224,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1087324657
 RectTransform:
   m_ObjectHideFlags: 0
@@ -56879,7 +56879,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278246399
-  m_fontColor: {r: 1, g: 0.8593202, b: 0, a: 1}
+  m_fontColor: {r: 1, g: 0.85882354, b: 0, a: 1}
   m_enableVertexGradient: 1
   m_colorMode: 2
   m_fontColorGradient:
@@ -60544,7 +60544,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1892293956
 RectTransform:
   m_ObjectHideFlags: 0
