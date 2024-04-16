@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using static UnityEngine.Rendering.ReloadAttribute;
 
 public class PhoneTab : MonoBehaviour
@@ -249,6 +250,21 @@ public class PhoneTab : MonoBehaviour
                 source.UnPause();  // Resume all audio sources that were paused
             }
         }
+    }
+
+    public void QuitGame()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+				Application.Quit();
+#endif
+    }
+
+    // Function to load a scene by name
+    public void LoadScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 
 }

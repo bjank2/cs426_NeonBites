@@ -253,7 +253,10 @@ namespace SlimUI.ModernMenu{
 			exitMenu.SetActive(false);
 		}
 
-		public void QuitGame(){
+		public GameObject backgrounddPng;
+
+
+        public void QuitGame(){
 			#if UNITY_EDITOR
 				UnityEditor.EditorApplication.isPlaying = false;
 			#else
@@ -267,6 +270,7 @@ namespace SlimUI.ModernMenu{
 			operation.allowSceneActivation = false;
 			mainCanvas.SetActive(false);
 			loadingMenu.SetActive(true);
+			backgrounddPng.SetActive(false);
 
 			while (!operation.isDone){
 				float progress = Mathf.Clamp01(operation.progress / .95f);
