@@ -1,69 +1,141 @@
 Shader "Custom/NeonLightBorder"
 {
-    Properties
-    {
-        _MainTex("Texture", 2D) = "white" {}
-        _GlowColor("Glow Color", Color) = (1,0,0,1)
-        _GlowIntensity("Glow Intensity", Float) = 1.0
-        _EdgeWidth("Edge Width", Float) = 1.0
-    }
-    SubShader
-    {
-        Tags { "Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "Transparent" }
-        LOD 100
+	Properties
+	{
+		_Color("Main Color", Color) = (0.5,0.5,0.5,1)
+		_MainTex("Texture", 2D) = "white" {}
 
-        Blend SrcAlpha OneMinusSrcAlpha
-        ZWrite Off
+		_FirstOutlineColor("Outline color", Color) = (1,0,0,0.5)
+		_FirstOutlineWidth("Outlines width", Range(0.0, 2.0)) = 0.15
 
-        Pass
-        {
-            CGPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
-            #include "UnityCG.cginc"
+		_SecondOutlineColor("Outline color", Color) = (0,0,1,1)
+		_SecondOutlineWidth("Outlines width", Range(0.0, 2.0)) = 0.025
 
-            struct appdata
-            {
-                float4 vertex : POSITION;
-                float2 uv : TEXCOORD0;
-            };
+		_Angle("Switch shader on angle", Range(0.0, 180.0)) = 89
+	}
 
-            struct v2f
-            {
-                float2 uv : TEXCOORD0;
-                float4 vertex : SV_POSITION;
-            };
+	CGINCLUDE
+	#include "UnityCG.cginc"
 
-            sampler2D _MainTex;
-            float4 _MainTex_ST;
-            float4 _GlowColor;
-            float _GlowIntensity;
-            float _EdgeWidth;
+	struct appdata {
+		float4 vertex : POSITION;
+		float4 normal : NORMAL;
+	};
 
-            v2f vert(appdata v)
-            {
-                v2f o;
-                o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-                return o;
-            }
+	uniform float4 _FirstOutlineColor;
+	uniform float _FirstOutlineWidth;
 
-            float4 frag(v2f i) : SV_Target
-            {
-                float4 col = tex2D(_MainTex, i.uv);
-                float alphaGlow = col.a;
+	uniform float4 _SecondOutlineColor;
+	uniform float _SecondOutlineWidth;
 
-                // Apply glow based on the edge detection
-                float edge = fwidth(alphaGlow);
-                float glow = smoothstep(_EdgeWidth, 0.0, edge * _GlowIntensity);
+	uniform sampler2D _MainTex;
+	uniform float4 _Color;
+	uniform float _Angle;
 
-                // Mix glow color with texture color
-                float4 glowColor = _GlowColor * glow;
+	ENDCG
 
-                return float4(col.rgb + glowColor.rgb, col.a);
-            }
-            ENDCG
-        }
-    }
+	SubShader{
+		//First outline
+		Pass{
+			Tags{ "Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "Transparent" }
+			Blend SrcAlpha OneMinusSrcAlpha
+			ZWrite Off
+			Cull Back
+			CGPROGRAM
+
+			struct v2f {
+				float4 pos : SV_POSITION;
+			};
+
+			#pragma vertex vert
+			#pragma fragment frag
+
+			v2f vert(appdata v) {
+				appdata original = v;
+
+				float3 scaleDir = normalize(v.vertex.xyz - float4(0,0,0,1));
+				//This shader consists of 2 ways of generating outline that are dynamically switched based on demiliter angle
+				//If vertex normal is pointed away from object origin then custom outline generation is used (based on scaling along the origin-vertex vector)
+				//Otherwise the old-school normal vector scaling is used
+				//This way prevents weird artifacts from being created when using either of the methods
+				if (degrees(acos(dot(scaleDir.xyz, v.normal.xyz))) > _Angle) {
+					v.vertex.xyz += normalize(v.normal.xyz) * _FirstOutlineWidth;
+				}else {
+					v.vertex.xyz += scaleDir * _FirstOutlineWidth;
+				}
+
+				v2f o;
+				o.pos = UnityObjectToClipPos(v.vertex);
+				return o;
+			}
+
+			half4 frag(v2f i) : COLOR{
+				return _FirstOutlineColor;
+			}
+
+			ENDCG
+		}
+		
+
+		//Second outline
+		Pass{
+			Tags{ "Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "Transparent" }
+			Blend SrcAlpha OneMinusSrcAlpha
+			ZWrite Off
+			Cull Back
+			CGPROGRAM
+
+			struct v2f {
+				float4 pos : SV_POSITION;
+			};
+
+			#pragma vertex vert
+			#pragma fragment frag
+
+			v2f vert(appdata v) {
+				appdata original = v;
+
+				float3 scaleDir = normalize(v.vertex.xyz - float4(0,0,0,1));
+				//This shader consists of 2 ways of generating outline that are dynamically switched based on demiliter angle
+				//If vertex normal is pointed away from object origin then custom outline generation is used (based on scaling along the origin-vertex vector)
+				//Otherwise the old-school normal vector scaling is used
+				//This way prevents weird artifacts from being created when using either of the methods
+				if (degrees(acos(dot(scaleDir.xyz, v.normal.xyz))) > _Angle) {
+					v.vertex.xyz += normalize(v.normal.xyz) * _SecondOutlineWidth;
+				}
+			else {
+				v.vertex.xyz += scaleDir * _SecondOutlineWidth;
+			}
+
+			v2f o;
+			o.pos = UnityObjectToClipPos(v.vertex);
+			return o;
+			}
+
+			half4 frag(v2f i) : COLOR{
+				return _SecondOutlineColor;
+			}
+
+			ENDCG
+		}
+
+		//Surface shader
+		Tags{ "Queue" = "Transparent" }
+
+		CGPROGRAM
+		#pragma surface surf Lambert noshadow
+
+		struct Input {
+			float2 uv_MainTex;
+			float4 color : COLOR;
+		};
+
+		void surf(Input IN, inout SurfaceOutput  o) {
+			fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * _Color;
+			o.Albedo = c.rgb;
+			o.Alpha = c.a;
+		}
+		ENDCG
+	}
     FallBack "Diffuse"
 }

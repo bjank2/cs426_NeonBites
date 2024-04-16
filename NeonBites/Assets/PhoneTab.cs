@@ -12,7 +12,10 @@ public class PhoneTab : MonoBehaviour
 
     public GameObject player;
 
-    private AudioSource audioSource;
+    private AudioSource myAudioSource;
+
+    private AudioSource[] allAudioSources;
+
     public AudioClip phoneOut;
 
     public Transform packageTransform;
@@ -35,7 +38,9 @@ public class PhoneTab : MonoBehaviour
     void Start()
     {
         // Get the AudioSource component attached to this GameObject
-        audioSource = GetComponent<AudioSource>();
+        myAudioSource = GetComponent<AudioSource>();
+        allAudioSources = FindObjectsOfType<AudioSource>();
+
 
         phoneTransform = phonePanel.transform;
     }
@@ -111,10 +116,10 @@ public class PhoneTab : MonoBehaviour
     public void PlayOneTime(AudioClip clip)
     {
         // Set the AudioClip to play
-        audioSource.clip = clip;
+        myAudioSource.clip = clip;
 
         // Play the AudioClip
-        audioSource.Play();
+        myAudioSource.Play();
 
     }
 
@@ -147,10 +152,10 @@ public class PhoneTab : MonoBehaviour
 
     IEnumerator PlayForLimitedTime(float duration)
     {
-        audioSource.clip = phoneOut;
-        audioSource.Play();
+        myAudioSource.clip = phoneOut;
+        myAudioSource.Play();
         yield return new WaitForSeconds(duration);
-        audioSource.Stop();
+        myAudioSource.Stop();
     }
 
     IEnumerator RotatePhoneToZero(Quaternion startRotation, Quaternion endRotation)
@@ -182,18 +187,17 @@ public class PhoneTab : MonoBehaviour
     {
         isPaused = !isPaused;
         pauseMenu.SetActive(isPaused);
-        Time.timeScale = isPaused ? 0 : 1;  // Stop or resume the game time
-        AudioListener.pause = isPaused;  // Pause or resume all sounds
+        Time.timeScale = isPaused ? 0 : 1;
 
         if (isPaused)
         {
-            // Additional actions to take when the game is paused
             DisablePlayerInputs();
+            PauseAllAudioExceptMine();
         }
         else
         {
-            // Resume normal game functions
             EnablePlayerInputs();
+            ResumeAllAudio();
         }
     }
 
@@ -223,6 +227,28 @@ public class PhoneTab : MonoBehaviour
         player.GetComponent<PlayerInput>().enabled = true;
         player.GetComponent<ThirdPersonController>().enabled = true;
 
+    }
+
+    private void PauseAllAudioExceptMine()
+    {
+        foreach (var source in allAudioSources)
+        {
+            if (source != myAudioSource && source.isPlaying)
+            {
+                source.Pause();  // Pause all audio sources except the one attached to this GameObject
+            }
+        }
+    }
+
+    private void ResumeAllAudio()
+    {
+        foreach (var source in allAudioSources)
+        {
+            if (source != myAudioSource)
+            {
+                source.UnPause();  // Resume all audio sources that were paused
+            }
+        }
     }
 
 }

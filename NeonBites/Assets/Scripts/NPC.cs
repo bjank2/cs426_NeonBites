@@ -25,12 +25,22 @@ public class NPC : MonoBehaviour
 
     public GameObject player;
 
+    public GameObject ExtraCanvas;
+    public GameObject gameCanvas;
+
+    public GameObject itemRecTxt;
+
+    public AudioSource audiosrc;
+    public AudioClip openConv;
+
     // Start is called before the first frame update
     void Start()
     {
         // Initialize things here if needed
         iai = GetComponent<InworldAudioInteraction>();
         iai.enabled = false;
+
+        audiosrc = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -82,7 +92,7 @@ public class NPC : MonoBehaviour
                         Debug.Log($"Phrase from {chatBubble.Title.text}: '{phrase}' found in ChatBubble: {chatBubble.Text}");
                         // Call the function here and set the flag
                         SomeFunction(phrase); // Replace with your actual function name
-
+                        itemRecTxt.SetActive(true);
                         phraseMatched = true; // Set the flag to true as the phrase has been matched
                         return; // Exit the loop and method as we've found a match
                     }
@@ -144,6 +154,12 @@ public class NPC : MonoBehaviour
         iai.enabled = true;
 
         player.SetActive(false);
+
+        gameCanvas.SetActive(false);
+        ExtraCanvas.SetActive(true);
+
+        audiosrc.PlayOneShot(openConv);
+
     }
 
     void EndConversation()
@@ -155,5 +171,8 @@ public class NPC : MonoBehaviour
 
 
         player.SetActive(true);
+
+        gameCanvas.SetActive(true);
+        ExtraCanvas.SetActive(false);
     }
 }
