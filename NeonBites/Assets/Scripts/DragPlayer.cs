@@ -47,7 +47,10 @@ public class DragPlayer : MonoBehaviour
     private bool isRightMouseButtonPressed = false; // Tracks the state of the right mouse button
 
     public TextMeshProUGUI modetext;
+    public TextMeshProUGUI submodetext;
     public GameObject LoadBtn;
+
+    public AudioSource myAudioSource;
 
     void Start()
     {
@@ -56,6 +59,22 @@ public class DragPlayer : MonoBehaviour
         modetext.text = "VIEW MODE";
         target_rn = playerMesh;
         LoadBtn.SetActive(false);
+
+        myAudioSource = GetComponent<AudioSource>();
+
+        // Get the current scene's name
+        string currentSceneName = SceneManager.GetActiveScene().name;
+
+        // Check if the current scene's name is equal to the desired scene name
+        if (currentSceneName == "Playground")
+        {
+            // Set the time scale to 1
+            Time.timeScale = 1f;
+
+            // Lock and hide the cursor
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     } 
 
     void Update()
@@ -135,8 +154,8 @@ public class DragPlayer : MonoBehaviour
             SelectPreviousMask();
         }
 
-        if (platformMesh != null)
-        {
+        if (platformMesh != null && target_rn == playerMesh)
+            {
             // Change masks with arrow keys
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
@@ -331,6 +350,8 @@ public class DragPlayer : MonoBehaviour
             Cursor.visible = false;
             modetext.text = "VIEW MODE";
 
+            submodetext.text = "Press I to finish customization";
+
             LoadBtn.SetActive(false);
         }
         else // If cursor is not visible, unlock it and show for UI interaction
@@ -338,6 +359,8 @@ public class DragPlayer : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             modetext.text = "BUTTON MODE";
+
+            submodetext.text = "Press I to go back to customization";
 
             LoadBtn.SetActive(true);
         }
@@ -368,6 +391,16 @@ public class DragPlayer : MonoBehaviour
             newPlayerMesh.SetActive(true);
             target_rn = newPlayerMesh;
         }
+    }
+
+    public void PlayOneTime(AudioClip clip)
+    {
+        // Set the AudioClip to play
+        myAudioSource.clip = clip;
+
+        // Play the AudioClip
+        myAudioSource.Play();
+
     }
 
 }

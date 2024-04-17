@@ -19,6 +19,9 @@ public class PhoneTab : MonoBehaviour
 
     public AudioClip phoneOut;
 
+    public AudioClip pauseClip;
+    public AudioClip resumeClip;
+
     public Transform packageTransform;
 
     public GameObject notificationP;
@@ -44,6 +47,21 @@ public class PhoneTab : MonoBehaviour
 
 
         phoneTransform = phonePanel.transform;
+
+        // Get the current scene's name
+        string currentSceneName = SceneManager.GetActiveScene().name;
+
+        // Check if the current scene's name is equal to the desired scene name
+        if (currentSceneName == "Minimaps")
+        {
+            // Set the time scale to 1
+            Time.timeScale = 1f;
+
+            // Lock and hide the cursor
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+
     }
 
     // Update is called once per frame
@@ -59,7 +77,7 @@ public class PhoneTab : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             TogglePause();
         }
@@ -192,11 +210,14 @@ public class PhoneTab : MonoBehaviour
 
         if (isPaused)
         {
+
+            PlayOneTime(pauseClip);
             DisablePlayerInputs();
             PauseAllAudioExceptMine();
         }
         else
         {
+            PlayOneTime(resumeClip);
             EnablePlayerInputs();
             ResumeAllAudio();
         }

@@ -47,7 +47,11 @@ public class DropOffArea : MonoBehaviour
 
             else
             {
-                deleteButton.gameObject.SetActive(false);
+                if(deleteButton != null)
+                {
+
+                    deleteButton.gameObject.SetActive(false);
+                }
 
                 Debug.Log("Wrong object delivered");
                 TMP_Money.text = "$" + MoneyManager.Instance.Money.ToString();

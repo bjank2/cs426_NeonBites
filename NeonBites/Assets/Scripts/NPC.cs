@@ -146,6 +146,9 @@ public class NPC : MonoBehaviour
         promptTxt.SetActive(false);
     }
 
+    public GameObject instTxt;
+    public GameObject instTxt2;
+
     void StartConversation()
     {
         npcCamera.enabled = true;
@@ -159,6 +162,11 @@ public class NPC : MonoBehaviour
         ExtraCanvas.SetActive(true);
 
         audiosrc.PlayOneShot(openConv);
+
+        if (instTxt!= null)
+        {
+            instTxt.SetActive(false);
+        }
 
     }
 
@@ -174,5 +182,10 @@ public class NPC : MonoBehaviour
 
         gameCanvas.SetActive(true);
         ExtraCanvas.SetActive(false);
+
+        if (instTxt2 != null)
+        {
+            instTxt2.SetActive(true);
+        }
     }
 }
