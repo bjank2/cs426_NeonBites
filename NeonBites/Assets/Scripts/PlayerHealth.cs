@@ -65,4 +65,16 @@ public class PlayerHealth : MonoBehaviour
         // gameObject.GetComponent<PlayerInput>().enabled = false;
 
     }
+
+    public void IncreaseHealth(float amount)
+{
+    if (!isDead)
+    {
+        currentHealth += amount;
+        currentHealth = Mathf.Min(currentHealth, maxHealth); // Ensure health does not exceed maxHealth
+        healthBar.value = currentHealth;
+        TMP_PlayerHealth.text = "Health: " + currentHealth;
+        healthBarFill.color = Color.Lerp(Color.red, Color.green, currentHealth / maxHealth);
+    }
+}
 }
