@@ -36,6 +36,7 @@ The addition of shaders serves to enhance visual feedback and player guidance wi
 2. Highlight Shader for Delivery Object: The highlight shader applied to the delivery object draws attention to its significance, aiding players in identifying and interacting with key objectives in the game. This visual cue reinforces the importance of the delivery task and improves overall gameplay clarity.
 
 3. Arrow Shader for Directional Guidance: The arrow shader provides directional guidance to players, particularly when locating important items or objectives. By outlining the arrow in a darker yellow color and filling it with a lighter shade, players can easily discern the direction they need to follow, facilitating smoother navigation and progression through the game world.
+PS: Please refer to the addded screenshot in the esign document for this shader. We were unable to merge this work in our build in time.
 
 In summary, the implementation of these shaders addresses the need for clear visual cues, assisting players in understanding game mechanics, identifying objectives, and navigating the game environment more effectively.
 
