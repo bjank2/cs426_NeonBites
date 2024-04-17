@@ -40,3 +40,5 @@ PS: Please refer to the addded screenshot in the esign document for this shader.
 
 In summary, the implementation of these shaders addresses the need for clear visual cues, assisting players in understanding game mechanics, identifying objectives, and navigating the game environment more effectively.
 
+TEXT BODIES:
+Introuctory text body is added at the start of the tutorial. Credits are added in main menu EXTRA section.
