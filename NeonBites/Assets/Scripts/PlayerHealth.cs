@@ -47,6 +47,11 @@ public class PlayerHealth : MonoBehaviour
 
     }
 
+    void OnCollisionEnter(Collision collision) {
+        if (collision.gameObject.tag == "Repair") {
+            currentHealth = maxHealth;
+        }
+    }
     void Die()
     {
         isDead = true;

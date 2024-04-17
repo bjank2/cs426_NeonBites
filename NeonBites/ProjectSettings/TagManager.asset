@@ -8,6 +8,7 @@ TagManager:
   - Grenade
   - CinemachineTarget
   - PickupObject
+  - Repair
   layers:
   - Default
   - TransparentFX

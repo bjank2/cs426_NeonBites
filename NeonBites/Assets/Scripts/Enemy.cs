@@ -71,7 +71,9 @@ public class Enemy : MonoBehaviour
                     }
                 }
             }
-
+        public void Wave() {
+            animator.SetTrigger("Wave");
+        }
 
         public void AttackPlayer()
         {
