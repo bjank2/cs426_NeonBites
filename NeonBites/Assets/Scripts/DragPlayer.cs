@@ -99,6 +99,11 @@ public class DragPlayer : MonoBehaviour
             platformMesh.transform.Rotate(Vector3.up, rotationPlayer * Time.deltaTime);
         }
 
+        if (Input.GetKey(KeyCode.Z)) // X key for player rotation
+        {
+            platformMesh.transform.Rotate(Vector3.up, -rotationPlayer * Time.deltaTime);
+        }
+
         if (Input.GetMouseButtonDown(0)) // Left mouse button pressed
         {
             isZooming = true;
@@ -160,7 +165,8 @@ public class DragPlayer : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.L))
         {
-            LoadGame();
+            //LoadGame();
+            ToggleCustomization();
         }
     }
 
@@ -309,10 +315,10 @@ public class DragPlayer : MonoBehaviour
         PlayerPrefs.Save(); // Save PlayerPrefs changes
     }
 
-    public void LoadGame()
+    public void LoadGame(string sceneName)
     {
         SaveMask();
-        SceneManager.LoadScene(1);   
+        SceneManager.LoadScene(sceneName);   
     }
 
     // Function to toggle cursor mode
