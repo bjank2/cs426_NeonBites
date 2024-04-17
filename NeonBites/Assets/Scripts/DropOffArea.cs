@@ -41,7 +41,12 @@ public class DropOffArea : MonoBehaviour
                 TMP_Money.text = "$" + MoneyManager.Instance.Money.ToString();
                 if (DeliveryStatusTMP != null) DeliveryStatusTMP.text = "Delivery Status: Complete";
                 Enemy enemyScript = FindObjectOfType<Enemy>();
-                enemyScript.Wave();
+
+                if(enemyScript != null)
+                {
+
+                    enemyScript.Wave();
+                }
                 Destroy(transform.parent.gameObject);
 
 

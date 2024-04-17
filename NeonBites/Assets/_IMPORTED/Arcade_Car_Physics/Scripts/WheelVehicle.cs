@@ -72,7 +72,7 @@ namespace VehicleBehaviour {
          *  The higher the torque the faster it accelerate
          *  the longer the curve the faster it gets
          */
-        [SerializeField] AnimationCurve motorTorque = new AnimationCurve(new Keyframe(0, 200), new Keyframe(50, 300), new Keyframe(200, 0));
+        [SerializeField] AnimationCurve motorTorque = new AnimationCurve(new Keyframe(0, 300), new Keyframe(50, 400), new Keyframe(200, 0));  // Increased base speed
 
         // Differential gearing ratio
         [Range(2, 16)]
@@ -88,17 +88,17 @@ namespace VehicleBehaviour {
         }
 
         // Max steering hangle, usualy higher for drift car
-        [Range(0f, 50.0f)]
-        [SerializeField] float steerAngle = 30.0f;
+        [Range(0f, 80.0f)]
+        [SerializeField] float steerAngle = 80.0f;
         public float SteerAngle { get => steerAngle;
-            set => steerAngle = Mathf.Clamp(value, 0.0f, 50.0f);
+            set => steerAngle = Mathf.Clamp(value, 0.0f, 80.0f);
         }
 
         // The value used in the steering Lerp, 1 is instant (Strong power steering), and 0 is not turning at all
-        [Range(0.001f, 1.0f)]
+        [Range(0.001f, 20.0f)]
         [SerializeField] float steerSpeed = 0.2f;
         public float SteerSpeed { get => steerSpeed;
-            set => steerSpeed = Mathf.Clamp(value, 0.001f, 1.0f);
+            set => steerSpeed = Mathf.Clamp(value, 0.001f, 20.0f);
         }
 
         // How hight do you want to jump?
