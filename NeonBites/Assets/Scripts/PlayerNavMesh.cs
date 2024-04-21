@@ -73,17 +73,7 @@ public class PlayerNavMesh : MonoBehaviour
                 destinationAgent = null;
                 lineRenderer.positionCount = 0;
             }
-        
-
-
-
-        // Check for input to trigger debug actions
-        if (Keyboard.current.qKey.wasPressedThisFrame)
-        {
-            gameObject.GetComponent<CharacterController>().enabled = false;
-            _animator.enabled = false;
-
-        }
+       
 
         // Check for input to trigger debug actions
         if (Keyboard.current.lKey.wasPressedThisFrame)

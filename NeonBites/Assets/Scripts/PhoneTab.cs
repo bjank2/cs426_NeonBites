@@ -288,4 +288,13 @@ public class PhoneTab : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
+    public void SetGOActive(GameObject gameObject)
+    {
+        if(gameObject.activeSelf)
+        {
+            gameObject.SetActive(false);
+        }
+        else gameObject.SetActive(true);
+    }
+
 }

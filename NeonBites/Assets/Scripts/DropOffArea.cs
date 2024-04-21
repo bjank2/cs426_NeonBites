@@ -18,6 +18,8 @@ public class DropOffArea : MonoBehaviour
     public TMPro.TextMeshProUGUI deleteButton;
     public TMPro.TextMeshProUGUI currentTaskTxt;
 
+    public GameObject ordderBtn;
+
 
     private void Start()
     {
@@ -42,11 +44,15 @@ public class DropOffArea : MonoBehaviour
                 if (DeliveryStatusTMP != null) DeliveryStatusTMP.text = "Delivery Status: Complete";
                 Enemy enemyScript = FindObjectOfType<Enemy>();
 
-                if(enemyScript != null)
+                ordderBtn.SetActive(false);
+
+                if (enemyScript != null)
                 {
 
                     enemyScript.Wave();
                 }
+
+
                 Destroy(transform.parent.gameObject);
 
 

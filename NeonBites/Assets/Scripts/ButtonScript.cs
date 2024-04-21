@@ -15,6 +15,8 @@ public class ButtonScript : MonoBehaviour
     public int deliveryTime; // Estimated time for delivery in minutes
     public int potentialMoney; // Potential money guaranteed
 
+    public GameObject package;
+
     void Start()
     {
         // Get the Button component attached to this GameObject
@@ -48,6 +50,14 @@ public class ButtonScript : MonoBehaviour
         // Enable or disable the background GameObject based on the selected state
         background.SetActive(true);
 
+        if(package != null)
+        {
+
+            package.SetActive(true);
+            package.GetComponent<PickupController>().destination.gameObject.SetActive(true);
+        }
+
+
         // Deactivate other buttons in the group
         foreach (ButtonScript otherButton in otherButtons)
         {
@@ -67,6 +77,8 @@ public class ButtonScript : MonoBehaviour
         isSelected = false;
         button.interactable = true;
         background.SetActive(false);
+
+        DisablePackage();
     }
 
     // Function to update the UI text with delivery time and potential money
@@ -87,6 +99,19 @@ public class ButtonScript : MonoBehaviour
     public void ActivateSelection()
     {
         Debug.Log("Track selected. Money: "+ moneyText.text + "  time: "+ deliveryTimeText.text);
+    }
+
+    public void DisablePackage()
+    {
+        if(package != null)
+        {
+            package.GetComponent<PickupController>().destination.gameObject.SetActive(false);
+            package.SetActive(false);
+
+
+        }
+        
+
     }
 
 }
