@@ -25,7 +25,7 @@ MonoBehaviour:
     type: 3}
   m_PlayerController: {fileID: 1786583365417058187, guid: eaefc8aac22db1d479ef21e362e3747e,
     type: 3}
-  m_CurrentStatus: 2
+  m_CurrentStatus: 3
   m_UserDataPath: UserData
   m_GameDataPath: GameData
   m_ThumbnailPath: Thumbnail
