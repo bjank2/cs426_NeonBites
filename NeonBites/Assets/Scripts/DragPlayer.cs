@@ -26,9 +26,9 @@ public class DragPlayer : MonoBehaviour
     public GameObject[] trophies;
     public ShoePair[] shoePairs;
 
-    private int currentMaskIndex = 0;
-    private int currentTrophyIndex = 0;
-    private int currentShoePairIndex = 0;
+    private int currentMaskIndex = 3;
+    private int currentTrophyIndex = 2;
+    private int currentShoePairIndex = 2;
 
     public Animator playerAnimator; // Reference to the player's animator component
     private Vector3 originalPosition; // To store the camera's original position

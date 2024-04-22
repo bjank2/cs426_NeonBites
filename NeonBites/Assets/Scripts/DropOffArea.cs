@@ -52,8 +52,8 @@ public class DropOffArea : MonoBehaviour
                     enemyScript.Wave();
                 }
 
-
-                Destroy(transform.parent.gameObject);
+                gameObject.SetActive(false);
+                //Destroy(transform.parent.gameObject);
 
 
             }
@@ -73,7 +73,9 @@ public class DropOffArea : MonoBehaviour
 
                 Enemy enemyScript = FindObjectOfType<Enemy>();
                 enemyScript.EnableAttacking();
-                Destroy(transform.parent.gameObject);
+
+                gameObject.SetActive(false);
+                //Destroy(transform.parent.gameObject);
 
             }
 
