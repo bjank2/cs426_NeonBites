@@ -23,6 +23,8 @@ public class Tutorial : MonoBehaviour
     private int tutorialStep = 0;
     private Vector3 offScreenPosition;
 
+    public GameObject space2con;
+
     void Start()
     {
         //Time.timeScale = 0; // Pause the game
@@ -47,6 +49,13 @@ public class Tutorial : MonoBehaviour
         {
             AdvanceTutorial();
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            orderInstructions.SetActive(false);
+            GameUI.SetActive(false);
+        }
+
     }
 
     private void AdvanceTutorial()
@@ -67,9 +76,11 @@ public class Tutorial : MonoBehaviour
                 // Third press: end the tutorial and hide instructions
                 moveInstructions.SetActive(false);
                 lookInstructions.SetActive(false);
+                space2con.SetActive(false);
+                Destroy(space2con);
+
                 orderInstructions.SetActive(true);
                 GameUI.SetActive(true);
-                this.enabled = false; // Optionally disable the script if the tutorial is over
                 break;
         }
     }

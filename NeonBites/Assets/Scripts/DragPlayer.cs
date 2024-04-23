@@ -52,6 +52,8 @@ public class DragPlayer : MonoBehaviour
 
     public AudioSource myAudioSource;
 
+    public GameObject lockedUI;
+    
     void Start()
     {
         originalPosition = transform.position; // Store the original position of the camera
@@ -284,6 +286,12 @@ public class DragPlayer : MonoBehaviour
 
         // Show next shoe pair
         SetShoePairActive(shoePairs[currentShoePairIndex], true);
+
+        if(currentShoePairIndex == 2)
+        {
+            lockedUI.SetActive(false);
+        }
+        else lockedUI.SetActive(true);
     }
 
     public void SelectPreviousShoePair()
@@ -300,6 +308,12 @@ public class DragPlayer : MonoBehaviour
 
         // Show previous shoe pair
         SetShoePairActive(shoePairs[currentShoePairIndex], true);
+
+        if (currentShoePairIndex == 2)
+        {
+            lockedUI.SetActive(false);
+        }
+        else lockedUI.SetActive(true);
     }
     private void SetShoePairActive(ShoePair pair, bool isActive)
     {
@@ -330,7 +344,7 @@ public class DragPlayer : MonoBehaviour
         // Save the selected mask index
         PlayerPrefs.SetInt("SelectedMaskIndex", currentMaskIndex);
         PlayerPrefs.SetInt("SelectedTrophyIndex", currentTrophyIndex);
-        PlayerPrefs.SetInt("SelectedShoeIndex", currentShoePairIndex);
+        //PlayerPrefs.SetInt("SelectedShoeIndex", currentShoePairIndex);
         PlayerPrefs.Save(); // Save PlayerPrefs changes
     }
 

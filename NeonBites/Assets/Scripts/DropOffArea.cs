@@ -44,7 +44,11 @@ public class DropOffArea : MonoBehaviour
                 if (DeliveryStatusTMP != null) DeliveryStatusTMP.text = "Delivery Status: Complete";
                 Enemy enemyScript = FindObjectOfType<Enemy>();
 
-                ordderBtn.SetActive(false);
+                if (ordderBtn != null)
+                {
+                    ordderBtn.SetActive(false);
+                }
+
 
                 if (enemyScript != null)
                 {
