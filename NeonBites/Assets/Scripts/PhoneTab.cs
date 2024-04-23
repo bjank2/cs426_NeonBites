@@ -38,6 +38,7 @@ public class PhoneTab : MonoBehaviour
     public GameObject pauseMenu;  // Assign the Pause Menu panel in the Inspector
     private bool isPaused = false;
 
+    public GameObject enemyPrefab;
 
     void Start()
     {
@@ -158,8 +159,14 @@ public class PhoneTab : MonoBehaviour
         currenttaskTxt.text = "Pickup order from location";
 
         StartCoroutine(DeactivateCoroutine(notificationP));
+        SpawnEnemy(packageTransform);
     }
 
+    private void SpawnEnemy(Transform deliveryTransform) {
+        Vector3 behindPosition = deliveryTransform.position - deliveryTransform.forward * 5;
+        Quaternion rotation = Quaternion.LookRotation(deliveryTransform.forward * -1);
+        Instantiate(enemyPrefab, behindPosition, rotation);
+    }
     IEnumerator DeactivateCoroutine(GameObject deactivateGO)
     {
         // Wait for the specified delay
