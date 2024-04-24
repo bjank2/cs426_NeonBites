@@ -1,41 +1,49 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EndGame : MonoBehaviour
 {
 
     public GameObject endPanel;
-    // Start is called before the first frame update
+    public Image endImage;
+
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // Ensure the end panel is initially disabled
+        endPanel.SetActive(false);
+        // Set the initial alpha of the image to 0
+        SetImageAlpha(0);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.CompareTag("Player"))
         {
+            Debug.Log("Player entered");
             endPanel.SetActive(true);
-
+            StartCoroutine(FadeInImage(3));  // Fade in over 3 seconds
         }
-
-
     }
-    private void OnTriggerExit(Collider other)
+
+    IEnumerator FadeInImage(float duration)
     {
-
-        if (other.gameObject.tag == "Player")
+        float currentTime = 0;
+        while (currentTime < duration)
         {
-
+            float alpha = Mathf.Lerp(0, 1, currentTime / duration);
+            SetImageAlpha(alpha);
+            currentTime += Time.deltaTime;
+            yield return null;
         }
+        SetImageAlpha(1);  // Ensure it ends up fully visible
+    }
 
+    void SetImageAlpha(float alpha)
+    {
+        Color color = endImage.color;
+        color.a = alpha;
+        endImage.color = color;
     }
 }

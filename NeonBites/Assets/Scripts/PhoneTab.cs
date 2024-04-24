@@ -199,7 +199,7 @@ public class PhoneTab : MonoBehaviour
 
     IEnumerator RotatePhoneToZero(Quaternion startRotation, Quaternion endRotation)
     {
-        float duration = 0.5f; // Duration in seconds
+        float duration = 0.15f; // Duration in seconds
         float time = 0;
 
         transition = true;

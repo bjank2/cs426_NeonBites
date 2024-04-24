@@ -48,7 +48,7 @@ public class Enemy : MonoBehaviour
                 AttackPlayer();
             }
         }
-        else
+        else if (target.gameObject.GetComponent<PlayerAttack>().enemy != null)
         {
             target.gameObject.GetComponent<PlayerAttack>().enemy = null;
             ReturnToInitialPosition();

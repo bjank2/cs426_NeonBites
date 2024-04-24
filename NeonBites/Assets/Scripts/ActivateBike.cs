@@ -58,7 +58,7 @@ public class ActivateBike : MonoBehaviour
         if (bikeMode && CheckForCrash())
         {
             Debug.Log("Crashing...");
-            Crash();
+            //Crash();
         }
     }
 
