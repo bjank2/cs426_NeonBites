@@ -2,7 +2,7 @@
 
 ![image](https://raw.githubusercontent.com/bjank2/cs426_NeonBites/main/nbICON.png)
 ## Build Files
-https://drive.google.com/drive/folders/1EANLb4bnvr2qkCM7hYo5mGTDaXVdcxZa?usp=sharing 
+https://drive.google.com/drive/folders/1hZV297skXoXL6xCDH6ku1F_grX78XF9E
 
 ## Design Doc
 https://docs.google.com/document/d/1csaCGoZ18wMGdjU5ncxgRVxiKu6TTFO754db7zGnMY4/edit?usp=sharing 
