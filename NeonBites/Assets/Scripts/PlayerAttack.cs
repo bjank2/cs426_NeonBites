@@ -6,17 +6,31 @@ public class PlayerAttack : MonoBehaviour
 {
     public Enemy enemy;
     public Animator animator;
-    void Update()
+    public AudioSource playerass;
+    public AudioClip punchClip;
+
+    private float lastAttackTime;
+    public float attackRate = 1f;  // Attacks per second
+
+    void Start()
     {
-
-        if (Input.GetMouseButtonDown(0))
-        {
-
-            animator.SetTrigger("AttackEnemy");
-            enemy.TakeDamage(7f);
-
-        }
-
+        playerass = GetComponent<AudioSource>();
     }
 
+    void Update()
+    {
+        if (enemy != null && Vector3.Distance(transform.position, enemy.transform.position) <= 2f)
+        {
+            if (Input.GetMouseButtonDown(0) && Time.time > lastAttackTime + 1f / attackRate)
+            {
+                lastAttackTime = Time.time;
+                if (!playerass.isPlaying)
+                {
+                    playerass.PlayOneShot(punchClip);
+                }
+                animator.SetTrigger("AttackEnemy");
+                enemy.TakeDamage(7f);
+            }
+        }
+    }
 }

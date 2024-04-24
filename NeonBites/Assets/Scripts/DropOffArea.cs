@@ -76,7 +76,7 @@ public class DropOffArea : MonoBehaviour
                 // Vector3 spawnPoint = new Vector3(transform.parent.position.x, 0f, transform.parent.position.z);
 
                 Enemy enemyScript = FindObjectOfType<Enemy>();
-                enemyScript.EnableAttacking();
+                //enemyScript.EnableAttacking();
 
                 gameObject.SetActive(false);
                 //Destroy(transform.parent.gameObject);

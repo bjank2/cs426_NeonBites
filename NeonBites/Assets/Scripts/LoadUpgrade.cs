@@ -65,8 +65,7 @@ public class LoadUpgrade : MonoBehaviour
         {
             Debug.LogError("Trophy prefab or head transform not found");
         }
-
-        // SHOE PAIR 
+        /*
         if (trophyTransform != null)
         {
             ShoePairs_[selectedShoeIndex].rightShoe.SetActive(true);
@@ -76,6 +75,8 @@ public class LoadUpgrade : MonoBehaviour
         {
             Debug.LogError("Shoe prefab or head transform not found");
         }
+
+        */
     }
 
 }

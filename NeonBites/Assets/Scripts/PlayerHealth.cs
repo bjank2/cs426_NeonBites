@@ -15,12 +15,15 @@ public class PlayerHealth : MonoBehaviour
     public UnityEngine.UI.Image healthBarFill;
     [SerializeField] private TMPro.TextMeshProUGUI TMP_PlayerHealth;
 
+    public AudioSource playerass;
+    public AudioClip damageClip;
+
     void Start()
     {
         currentHealth = maxHealth;
         healthBar.value = 100;
         healthBarFill.color = Color.green;
-
+        playerass = GetComponent<AudioSource>();
     }
 
 
@@ -29,6 +32,7 @@ public class PlayerHealth : MonoBehaviour
         // Wait for the specified duration
         yield return new WaitForSeconds(duration);
     }
+
     public void TakeDamage(float amount)
     {
         if (isDead) return;
@@ -61,7 +65,8 @@ public class PlayerHealth : MonoBehaviour
 
     void TriggerDamageAnimation()
     {
-        animator.SetTrigger("TakeDamage");
+        //animator.SetTrigger("TakeDamage");
+        playerass.PlayOneShot(damageClip);
         // gameObject.GetComponent<PlayerInput>().enabled = false;
 
     }
