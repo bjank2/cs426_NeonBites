@@ -40,6 +40,12 @@ public class PhoneTab : MonoBehaviour
 
     public GameObject enemyPrefab;
 
+    public GameObject[] orderBtns;
+
+    public GameObject roadBlock;
+
+    private bool lastPackage = true;
+
     void Start()
     {
         // Get the AudioSource component attached to this GameObject
@@ -82,6 +88,13 @@ public class PhoneTab : MonoBehaviour
         {
             TogglePause();
         }
+
+        if (lastPackage)
+        {
+            CheckAndActivateLastButton();
+
+        }
+
     }
 
     public void PhoneTabAct()
@@ -277,6 +290,36 @@ public class PhoneTab : MonoBehaviour
             {
                 source.UnPause();  // Resume all audio sources that were paused
             }
+        }
+    }
+
+    // Call this method to check the state of the buttons and potentially activate the last one
+    public void CheckAndActivateLastButton()
+    {
+        if (orderBtns.Length == 0)
+        {
+            Debug.LogWarning("Order buttons array is empty.");
+            return;
+        }
+
+        bool allDisabled = true;
+        foreach (GameObject btn in orderBtns)
+        {
+            if (btn.activeSelf)
+            {
+                allDisabled = false;
+                break;
+            }
+        }
+
+        if (allDisabled)
+        {
+            roadBlock.SetActive(false);
+
+            lastPackage = false;
+            // Enable the last button in the array
+            orderBtns[orderBtns.Length - 1].SetActive(true);
+            Debug.Log("All buttons were disabled; last button has been activated.");
         }
     }
 
