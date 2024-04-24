@@ -1,6 +1,6 @@
 # CS426 Final project NEON-BITES
 
-![image](https://github.com/bjank2/cs426_NeonBites/assets/89926012/d294e279-ad82-42aa-b9e3-675b2acbf4d1)
+![image](https://raw.githubusercontent.com/bjank2/cs426_NeonBites/main/nbICON.png)
 ## Build Files
 https://drive.google.com/drive/folders/1EANLb4bnvr2qkCM7hYo5mGTDaXVdcxZa?usp=sharing 
 
