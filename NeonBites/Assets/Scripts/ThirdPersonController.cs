@@ -161,9 +161,17 @@ namespace StarterAssets
             Move();
         }
 
+
+        public GameObject shoes;
+
         private void LateUpdate()
         {
             CameraRotation();
+
+            if (shoes.activeSelf)
+            {
+                SprintSpeed = 12f;
+            }
         }
 
         private void AssignAnimationIDs()
