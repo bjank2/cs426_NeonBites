@@ -21,10 +21,11 @@ Gameplay: NeonBites is a thrilling cyberpunk food delivery game where players ta
 3. Pranav Mishra (Project Manager) https://www.linkedin.com/in/pranavgamedev/
 
 ## Screenshots
-![image](https://raw.githubusercontent.com/bjank2/cs426_NeonBites/main/nbICON.png)
-![image](https://raw.githubusercontent.com/bjank2/cs426_NeonBites/main/nbICON.png)
-![image](https://raw.githubusercontent.com/bjank2/cs426_NeonBites/main/nbICON.png)
-![image](https://raw.githubusercontent.com/bjank2/cs426_NeonBites/main/nbICON.png)
+![image](https://raw.githubusercontent.com/bjank2/cs426_NeonBites/main/1.png)
+![image](https://raw.githubusercontent.com/bjank2/cs426_NeonBites/main/111.png)
+![image](https://raw.githubusercontent.com/bjank2/cs426_NeonBites/main/1111.png)
+![image](https://raw.githubusercontent.com/bjank2/cs426_NeonBites/main/2.png)
+![image](https://raw.githubusercontent.com/bjank2/cs426_NeonBites/main/12.png)
 
 ## FEs:
 Interaction Pattern: Player vs game. There is no multiplayer, the player interacts with NPCs only.
