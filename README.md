@@ -13,7 +13,7 @@ https://docs.google.com/document/d/1csaCGoZ18wMGdjU5ncxgRVxiKu6TTFO754db7zGnMY4/
 3. Pranav Mishra (Project Manager)
 
 ## Game Idea:
-In single player versus game, the player will play as a robot tasked with delivering food to customers while facing various conflicts such as time, enemies, and their malfunctioning cybernetic body. The player will manage time, money, and body/vehicle upgrades.
+A thrilling cyberpunk food delivery game where players navigate a neon-lit city, avoiding obstacles and enemies to deliver orders on time while managing resources and upgrading their character. Features include dynamic driving mechanics, minimaps, and interactive NPCs.
 
 ## FEs:
 Interaction Pattern: Player vs game. There is no multiplayer, the player interacts with NPCs only.
