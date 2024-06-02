@@ -8,7 +8,7 @@ https://drive.google.com/drive/folders/1hZV297skXoXL6xCDH6ku1F_grX78XF9E
 https://docs.google.com/document/d/1csaCGoZ18wMGdjU5ncxgRVxiKu6TTFO754db7zGnMY4/edit?usp=sharing 
 
 ### Download for PC
-
+https://drive.google.com/drive/folders/1hZV297skXoXL6xCDH6ku1F_grX78XF9E
 
 ## Game Idea:
 A thrilling cyberpunk food delivery game where players navigate a neon-lit city, avoiding obstacles and enemies to deliver orders on time while managing resources and upgrading their character. Features include dynamic driving mechanics, minimaps, and interactive NPCs. 
@@ -19,6 +19,12 @@ Gameplay: NeonBites is a thrilling cyberpunk food delivery game where players ta
 1. Bianca Jankiewicz https://www.linkedin.com/in/bianca-mjankiewicz/
 2. Alexa Osuna
 3. Pranav Mishra (Project Manager) https://www.linkedin.com/in/pranavgamedev/
+
+## Screenshots
+![image](https://raw.githubusercontent.com/bjank2/cs426_NeonBites/main/nbICON.png)
+![image](https://raw.githubusercontent.com/bjank2/cs426_NeonBites/main/nbICON.png)
+![image](https://raw.githubusercontent.com/bjank2/cs426_NeonBites/main/nbICON.png)
+![image](https://raw.githubusercontent.com/bjank2/cs426_NeonBites/main/nbICON.png)
 
 ## FEs:
 Interaction Pattern: Player vs game. There is no multiplayer, the player interacts with NPCs only.
